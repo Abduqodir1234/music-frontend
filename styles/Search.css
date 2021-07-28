@@ -1,0 +1,4 @@
+.search:focus {
+  overflow: hidden;
+  outline: none;
+}
