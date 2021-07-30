@@ -57,9 +57,9 @@ export default function TopMusics() {
       }} className="mySwiper">
         {top_songs.map(song =>
           <SwiperSlide key={song.id} onClick={() => musichandle(song.id)}>
-            <div className="contain"  >
+            <div  >
               <Image className="crsimg" width={300} height={300} src={song.photo ? port + song.photo : picture}></Image>
-              <div class="overlay">
+              {/* <div class="overlay">
                 <div class="text">
                   <PlayCircleOutlineOutlinedIcon
                     style=
@@ -84,11 +84,11 @@ export default function TopMusics() {
                     {song.artist}-{song.title}
                   </div>
                 </div>
-              </div>
+              </div> */}
               <br />
-              <div style={{ position: "absolute", left: "0px", top: "70%", fontWeight: "light", fontSize: "small" }}>
-                {song.artist}-{song.title}
-              </div>
+              <div style={{ fontWeight: "light", fontSize: "small" }}></div>
+              {song.artist}-{song.title}
+
             </div>
 
           </SwiperSlide>)}
