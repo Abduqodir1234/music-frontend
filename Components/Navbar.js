@@ -27,6 +27,9 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import FormControl from "@material-ui/core/FormControl"
+import homeicon from "../public/home.svg"
+import categoryicon from '../public/category.svg'
+import usericon from "../public/user-2.svg"
 import {
   Grid,
   Input,
@@ -198,7 +201,7 @@ function MiniDrawer({ children }) {
         ?
         <div>
           <div>
-            <Grid container style={{ backgroundColor: "#ff1f1f", padding: "5px", paddingLeft: "5px" }}>
+            <Grid container style={{ backgroundColor: "#382366", padding: "5px", paddingLeft: "5px" }}>
               <Grid item xs={6}>
                 <Typography variant="div" style={{ paddingLeft: "20px" }} >
                   <Image src={logo} width="100" height="26" />
@@ -242,13 +245,13 @@ function MiniDrawer({ children }) {
             <Grid container>
 
               <Grid xs={12}>
-                <center> <input type="search" className="search" placeholder="Search" style={{ borderRadius: "8px", width: "97%", border: "2px solid #ff1f1f", marginTop: "10px", padding: "2px", paddingLeft: "10px" }} /></center>
+                <center> <input type="search" className="search" placeholder="Search" style={{ borderRadius: "8px", width: "97%", border: "2px solid grey", marginTop: "10px", padding: "2px", paddingLeft: "10px" }} /></center>
               </Grid>
             </Grid>
 
           </div>
           <div>
-            <div style={{backgroundColor:"#f5feff"}}>
+            <div style={{ backgroundColor: "#f5feff" }}>
               {children}
             </div>
             <div style={style} className="fixed-bottom"  >
@@ -257,11 +260,60 @@ function MiniDrawer({ children }) {
             </div>
           </div>
           <div>
-            <BottomNavigation value={value} className="fixed-bottom" style={{ boxShadow: "3px -15px 15px 5px grey", backgroundColor: "#ff1f1f" }} >
-              <BottomNavigationAction style={{ color: "white" }} label="Home" onClick={() => { setvalue("/"); router.push("/") }} value="/" icon={<HomeRoundedIcon />} />
-              <BottomNavigationAction style={{ color: "white" }} label="Categories" onClick={() => { setvalue("/category"); router.push("/category") }} value="/category" icon={<AppsIcon />} />
-              <BottomNavigationAction style={{ color: "white" }} label="Artists" onClick={() => setvalue("/artists")} value="/artists" icon={<PersonIcon />} />
-              <BottomNavigationAction style={{ color: "white" }} label="Search" onClick={() => setvalue("/search")} value="/search" icon={<SearchIcon />} />
+            <BottomNavigation
+              value={value}
+              className="fixed-bottom"
+              style=
+              {{
+                backgroundColor: "white",
+                borderTop: "1px solid lavender"
+              }}
+            >
+              <BottomNavigationAction
+                label="Home"
+                onClick=
+                {
+                  () => {
+                    setvalue("/");
+                    router.push("/")
+                  }
+                }
+                value="/"
+                icon={<Image src={homeicon} width={20} height={20} />}
+              />
+              <BottomNavigationAction
+                label="Categories"
+                onClick=
+                {
+                  () => {
+                    setvalue("/category");
+                    router.push("/category")
+                  }
+                }
+                value="/category"
+                icon={<Image src={categoryicon}
+                  color="initial"
+                  width={20}
+                  height={20}
+                />}
+              />
+              <BottomNavigationAction
+                label="Artists"
+                onClick=
+                {
+                  () => setvalue("/artists")
+                }
+                value="/artists"
+                icon=
+                {
+                  <Image src={usericon}
+                    color="initial"
+                    width={20}
+                    height={20}
+                  />
+                }
+              />
+              <BottomNavigationAction label="Search" onClick={() => setvalue("/search")} value="/search" icon={<SearchIcon />} />
             </BottomNavigation>
           </div>
         </div>
@@ -274,9 +326,9 @@ function MiniDrawer({ children }) {
               [classes.appBarShift]: open,
             })}
           >
-            <Toolbar style={{ backgroundColor: "#ff1f1f" }}>
+            <Toolbar style={{ backgroundColor: "white" }}>
               <IconButton
-                style={{ backgroundColor: "#ff1f1f" }}
+                style={{ color: "black" }}
                 color="inherit"
                 aria-label="open drawer"
                 onClick={handleDrawerOpen}
@@ -293,7 +345,7 @@ function MiniDrawer({ children }) {
 
               >
                 <Grid item xs={3}>
-                  <Typography variant="h6" noWrap>
+                  <Typography variant="h6" noWrap color="textPrimary">
                     Music Store
                   </Typography>
                 </Grid>
@@ -302,7 +354,7 @@ function MiniDrawer({ children }) {
                     fullWidth
                     style={{ backgroundColor: "white" }}
                     size="small"
-                    color="secondary"
+                    color="primary"
                     variant="outlined"
                     placeholder="Search"
                     type="text"
@@ -325,7 +377,7 @@ function MiniDrawer({ children }) {
                     onClick={handleselect}
                     onBlur={handleClose}
                     size="small"
-                    style={{ color: "white" }}
+                    style={{ color: "black" }}
                   >
                     {lang}
                   </Button>
@@ -399,7 +451,7 @@ function MiniDrawer({ children }) {
 
 
           </Drawer>
-          <div style={{ marginTop: "70px",backgroundColor:"#f5feff"}}>
+          <div style={{ marginTop: "70px", backgroundColor: "#f5feff" }}>
             {children}
             <div style={style} className="fixed-bottom"  >
               {/* <div style={{position:"absolute",top:"0%",left:"0px",width:"100%"}}> */}

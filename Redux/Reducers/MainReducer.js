@@ -1,7 +1,10 @@
 const initialstate = {
     category: [],
     artists: [],
-    top_songs: []
+    top_songs: [],
+    player_display: false,
+    plays_music_id: undefined,
+    playing_music_info: []
 }
 
 export const mainreducer = (state = initialstate, action) => {
@@ -21,6 +24,28 @@ export const mainreducer = (state = initialstate, action) => {
                 ...state,
                 top_songs: action.payload
             }
+        case "OPEN_PLAYER":
+            return {
+                ...state,
+                player_display: true
+            }
+        case "CLOSE_PLAYER":
+            return {
+                ...state,
+                player_display: false
+            }
+        case "GET_MUSIC_ID":
+            return {
+                ...state,
+                plays_music_id: action.payload
+            }
+        case "GET_ONE_MUSIC_INFO":
+            return {
+                ...state,
+                playing_music_info: action.payload
+
+            }
+
         default: return state
     }
 }

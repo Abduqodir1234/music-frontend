@@ -20,11 +20,6 @@ const MobileCarouselGroup = () =>{
                 <h4><PersonIcon style={{ marginBottom: "3px", color: "red", marginRight: "3px" }} />Top Artists</h4><br />
                 <div style={{ marginLeft: "20px", marginRight: "20px" }}> <TopArtists /></div>
             </div><br />
-            {/*<div>*/}
-            {/*  <h4><PlaylistPlayIcon style={{ marginBottom: "3px", color: "red", marginRight: "3px" }} />Top PlayLists</h4><br />*/}
-            {/*  <TopPlaylists />*/}
-            {/*</div>*/}
-
         </div>
     )
 
