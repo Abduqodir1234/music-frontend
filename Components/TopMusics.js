@@ -25,9 +25,6 @@ export default function TopMusics() {
   const top_songs = useSelector(state => state.main.top_songs)
   const dispatch = useDispatch()
   const musichandle = (id) => {
-    console.log("clicked and id is", id)
-    dispatch(get_music_id(id))
-    dispatch(open_player())
     axios.get(port + "/api/songs/" + id)
       .then(response => {
         dispatch(get_one_music_info(response.data))
@@ -35,6 +32,9 @@ export default function TopMusics() {
       .catch(error => {
         console.log(error)
       })
+    dispatch(get_music_id(id))
+    dispatch(open_player())
+
   }
   const size = useWindowSize()
   return (
