@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   images: {
-    domains: ["uzmp2.heroku.app", "api.wolt.uz"],
+    domains: ["uzmp3.herokuapp.com", "api.wolt.uz"],
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
