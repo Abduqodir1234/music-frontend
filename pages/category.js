@@ -48,7 +48,7 @@ const CategoryList = ({ data }) => {
                                     //             () => musichandle(category.id)
                                     //         }
                                     //     >
-                                    <Grid container style={{ backgroundColor: "white", borderRadius: "15px", padding: "15px", width: "100%", marginBottom: "10px" }}>
+                                    <Grid key={category.id} container style={{ backgroundColor: "white", borderRadius: "15px", padding: "15px", width: "100%", marginBottom: "10px" }}>
                                         <Grid item lg={1} md={1} xs={1} style={{ borderRadius: "15px", overflow: "hidden" }}>
                                             <Image src={category.photo ? port + category.photo : "https://api.wolt.uz/storage/images/noimg.jpg"} width={200} height={200} />
                                         </Grid>
