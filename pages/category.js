@@ -9,7 +9,8 @@ import { useSelector, useDispatch } from "react-redux"
 import get_music_id from "../Redux/Actions/get_music_id"
 import open_player from "../Redux/Actions/openplayer"
 import { ArrowDownward, DoneTwoTone, GetApp } from "@material-ui/icons"
-import { Link } from "next/link"
+import Link from "next/link"
+import { useRouter } from "next/dist/client/router"
 const CategoryList = ({ data }) => {
     const music = useSelector(state => state.main.one_category_with_musics)
     const dispatch = useDispatch()
@@ -24,6 +25,11 @@ const CategoryList = ({ data }) => {
         dispatch(get_music_id(id))
         dispatch(open_player())
 
+    }
+    const router = useRouter()
+    const download = (id) => {
+        let url = port + "/api/download/song/" + id
+        router.push(url)
     }
     return (
         <CategoryNavigation data={data}>
@@ -48,7 +54,7 @@ const CategoryList = ({ data }) => {
                                     //             () => musichandle(category.id)
                                     //         }
                                     //     >
-                                    <Grid key={category.id} container style={{ backgroundColor: "white", borderRadius: "15px", padding: "15px", width: "100%", marginBottom: "10px" }}>
+                                    <Grid container style={{ backgroundColor: "white", borderRadius: "15px", padding: "15px", width: "100%", marginBottom: "10px" }}>
                                         <Grid item lg={1} md={1} xs={1} style={{ borderRadius: "15px", overflow: "hidden" }}>
                                             <Image src={category.photo ? port + category.photo : "https://api.wolt.uz/storage/images/noimg.jpg"} width={200} height={200} />
                                         </Grid>
@@ -57,7 +63,7 @@ const CategoryList = ({ data }) => {
                                         </Grid>
 
                                         <Grid item lg={1} md={1} xs={1}>
-                                            <Link href={port + "download/song/" + category.id}> <GetApp /> </Link>
+                                            <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
                                         </Grid>
                                     </Grid>
                                     // </Grid>
@@ -74,7 +80,7 @@ const CategoryList = ({ data }) => {
     )
 }
 
-CategoryList.getInitialProps = async (ctx) => {
+CategoryList.getInitialProps = async () => {
     const request2 = await axios({
         method: "GET",
         url: port + "/api/categories",

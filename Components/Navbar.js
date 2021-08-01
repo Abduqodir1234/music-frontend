@@ -451,7 +451,7 @@ function MiniDrawer({ children }) {
 
 
           </Drawer>
-          <div style={{ marginTop: "70px", backgroundColor: "#f5feff" }}>
+          <div style={{ marginTop: "70px", backgroundColor: "#f5feff " }}>
             {children}
             <div style={style} className="fixed-bottom"  >
               {/* <div style={{position:"absolute",top:"0%",left:"0px",width:"100%"}}> */}
