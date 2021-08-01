@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import store from '../Redux/store'
 import "../styles/card.css"
 import "../styles/player.scss"
-
+import "../styles/CategoryNavigation.css"
 function MyApp({ Component, pageProps }) {
 
   return (

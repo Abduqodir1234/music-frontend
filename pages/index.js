@@ -46,7 +46,7 @@ export default function Home({ data, artists, top_songs }) {
       </Head>
       <main style={{ paddingLeft: "30px", paddingTop: "20px", paddingRight: "30px", marginBottom: "200px" }}>
 
-        {size.width <= 661 ? <MobileCarouselGroup />: <DesktopMainCarousel />}
+        {size.width <= 661 ? <MobileCarouselGroup /> : <DesktopMainCarousel />}
 
       </main><br />
 
@@ -73,5 +73,6 @@ Home.getInitialProps = async () => {
   })
 
   const topsongs = await request2_2.data;
+  console.log(request2, request2_1, request2_2)
   return { data: answer, artists: artist, top_songs: topsongs }
 }
