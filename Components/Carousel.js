@@ -36,7 +36,7 @@ const Carousel = () => {
         }
       }} className="mySwiper">
 
-        {data.map(category =>
+        {data.category.map(category =>
           <SwiperSlide key={category.id}>
             <div style={{color:"black"}}>
               <Image className="crsimg" width={300} height={300} src={port + category.photo}></Image><br />
