@@ -11,9 +11,17 @@ import open_player from "../Redux/Actions/openplayer"
 import { ArrowDownward, DoneTwoTone, GetApp } from "@material-ui/icons"
 import Link from "next/link"
 import { useRouter } from "next/dist/client/router"
+import get_one_music_info from "../Redux/Actions/get_one_music_info"
+import chosen_category from "../Redux/Actions/chosen_catgory"
+import { useEffect } from "react"
 const CategoryList = ({ data }) => {
     const music = useSelector(state => state.main.one_category_with_musics)
+    const category = useSelector(state => state.main.chosen_category_title)
     const dispatch = useDispatch()
+    dispatch(get_one_music_info(data.music))
+    useEffect(() => {
+        dispatch(chosen_category(data.category_name))
+    }, [])
     const musichandle = (id) => {
         axios.get(port + "/api/songs/" + id)
             .then(response => {
@@ -32,48 +40,62 @@ const CategoryList = ({ data }) => {
         router.push(url)
     }
     return (
-        <CategoryNavigation data={data}>
-            <div style={{ marginLeft: "40px", marginRight: "40px", marginBottom: "150px", backgroundColor: "#f5feff" }}><br /><br />
-                {
-                    music !== [] && music.length !== 0 ?
-                        (
-                            <div style={{ backgroundColor: "#f5feff" }}>
-                                <h3 style={{}}>
-                                    <AppsIcon style={{ color: "red", marginBottom: "3px" }} /> {music[0].category.title}
-                                </h3><br />
-
-                                {music.map(category =>
-                                    // <Grid container style={{ marginRight: "20px", marginLeft: "30px" }} >
-                                    //     <Grid
-                                    //         key={category.id}
-                                    //         item xs={4}
-                                    //         md={3}
-                                    //         lg={2}
-                                    //         style={{ marginRight: "20px", marginBottom: "10px", borderRadius: "105px" }}
-                                    //         onClick={
-                                    //             () => musichandle(category.id)
-                                    //         }
-                                    //     >
-                                    <Grid key={category.id} container style={{ backgroundColor: "white", borderRadius: "15px", padding: "15px", width: "100%", marginBottom: "10px" }}>
-                                        <Grid item lg={1} md={1} xs={1} style={{ borderRadius: "15px", overflow: "hidden" }}>
-                                            <Image src={category.photo ? port + category.photo : "https://api.wolt.uz/storage/images/noimg.jpg"} width={200} height={200} />
-                                        </Grid>
-                                        <Grid item lg={10} md={10} xs={10} style={{ textAlign: "center" }}>
-                                            {category.artist}-{category.title}
-                                        </Grid>
-
-                                        <Grid item lg={1} md={1} xs={1}>
-                                            <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
-                                        </Grid>
-                                    </Grid>
-                                    // </Grid>
-                                    // </Grid>
-                                )}
-                            </div>
-                        )
+        <CategoryNavigation data={data} className="fixed-left h-100">
+            <div className="h-100" style={{ marginLeft: "40px", marginRight: "40px", marginBottom: "150px", backgroundColor: "#f5feff", minHeight: "100%" }}><br /><br />
+                <div style={{ backgroundColor: "#f5feff" }}>
+                    {category !== ""
+                        ?
+                        <>
+                            <h3 style={{}}>
+                                <AppsIcon style={{ color: "red", marginBottom: "3px" }} /> {category}
+                            </h3><br />
+                        </>
                         :
-                        <h4>Choose any category to show musics related to clicked category</h4>
-                }
+                        ""
+                    }
+                    {
+                        music !== [] && music.length !== 0 ?
+                            (
+                                <div className="container" style={{ width: "100%" }} >
+                                    <div className="row">
+                                        {music.map(category =>
+                                            <div
+                                                className="col-md-5 col-lg-5 col-12"
+                                                key={category.id}
+                                                style=
+                                                {{
+                                                    backgroundColor: "white",
+                                                    borderRadius: "15px",
+                                                    paddingLeft: "15px",
+                                                    marginBottom: "10px",
+                                                    marginRight: "20px",
+                                                    marginLeft: "20px",
+                                                    paddingTop: "20px",
+                                                    paddingBottom: "0px",
+                                                    paddingRight: "15px"
+                                                }}
+                                                onClick={() => musichandle(category.id)}
+                                            >
+                                                <div className="row">
+                                                    <div className="col-lg-1 col-md-1 col-2" style={{ borderRadius: "15px", overflow: "hidden", height: "50px", width: "50px" }}>
+                                                        <Image src={category.photo ? port + category.photo : "https://api.wolt.uz/storage/images/noimg.jpg"} width={200} height={200} />
+                                                    </div>
+                                                    <div className="col-lg-9 col-md-10 col-8" style={{ textAlign: "center", overflow: "hidden" }}>
+                                                        {category.artist}-{category.title}
+                                                    </div>
+                                                    <div className="col-lg-1 col-md-1 col-1">
+                                                        <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )
+                            :
+                            <h6>There is no musics related to chosen category</h6>
+                    }
+                </div>
             </div >
         </CategoryNavigation >
 

@@ -4,12 +4,15 @@ import Image from "next/image"
 import { useDispatch } from 'react-redux'
 import get_category_with_music from "../Redux/Actions/get_category_with_songs"
 import axios from "axios"
+import chosen_category from "../Redux/Actions/chosen_catgory";
 const CategoryNavigation = ({ children, data }) => {
     const dispatch = useDispatch()
-    const handleclick = (id) => {
+    const handleclick = (id, title) => {
+        dispatch(chosen_category(title))
         axios.get(port + "/api/sons/catgegory/" + id)
             .then(response => {
                 dispatch(get_category_with_music(response.data))
+
             })
             .catch(errors => {
                 console.log(errors)
@@ -19,12 +22,17 @@ const CategoryNavigation = ({ children, data }) => {
         <div>
             <div className="containere">
                 <div className="category_navigation"><br />
-                    {data.map(category => (
-                        <div key={data.id} className="category_navigation_container" onClick={() => handleclick(category.id)}>
+                    {data.category.map(category => (
+                        <div
+                            style={{ marginBottom: "100px" }}
+                            key={category.id}
+                            className="category_navigation_container"
+                            onClick={() => handleclick(category.id, category.title)}
+                        >
                             <div className="container-content text-center">
                                 <Image className="content-img" src={port + category.photo} width="50" height="50" style={{ marginLeft: "20px" }} /><br />
                                 <div className="category_navigation_text">{category.title}</div>
-                            </div><br />
+                            </div>
                         </div>
                     )
                     )}

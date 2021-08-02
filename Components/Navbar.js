@@ -86,9 +86,6 @@ export function useWindowSize() {
   return windowSize;
 }
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -319,7 +316,7 @@ function MiniDrawer({ children }) {
         </div>
         :
         <div className={classes.root}>
-          <CssBaseline />
+
           <AppBar
             position="fixed"
             className={clsx(classes.appBar, {
@@ -341,8 +338,6 @@ function MiniDrawer({ children }) {
               </IconButton>
               <Grid
                 container
-
-
               >
                 <Grid item xs={3}>
                   <Typography variant="h6" noWrap color="textPrimary">
@@ -448,10 +443,8 @@ function MiniDrawer({ children }) {
               </ListItem>
             </List>
             <Divider />
-
-
           </Drawer>
-          <div style={{ marginTop: "70px", backgroundColor: "#f5feff " }}>
+          <div style={{ marginTop: "70px", backgroundColor: "#f5feff ", width: "100%", height: "100%", marginLeft: "70px" }}>
             {children}
             <div style={style} className="fixed-bottom"  >
               {/* <div style={{position:"absolute",top:"0%",left:"0px",width:"100%"}}> */}

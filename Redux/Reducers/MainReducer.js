@@ -5,7 +5,8 @@ const initialstate = {
     player_display: false,
     plays_music_id: undefined,
     playing_music_info: [],
-    one_category_with_musics: []
+    one_category_with_musics: [],
+    chosen_category_title: ""
 }
 
 export const mainreducer = (state = initialstate, action) => {
@@ -49,6 +50,11 @@ export const mainreducer = (state = initialstate, action) => {
             return {
                 ...state,
                 one_category_with_musics: action.payload
+            }
+        case "chosen_category":
+            return {
+                ...state,
+                chosen_category_title: action.payload
             }
         default: return state
     }
