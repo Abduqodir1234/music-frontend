@@ -18,7 +18,7 @@ import get_category from "../Redux/Actions/getcategory"
 import get_artists from '../Redux/Actions/getartists'
 import get_top_songs from '../Redux/Actions/get_top_songs'
 import MobileCarouselGroup from "../Components/MobileCarouselGroup";
-import DesktopMainCarousel from "../Components/DesktopMainCarousel";
+import DesktopMainCarousel from "../Components/DesktopMain";
 export default function Home({ data, artists, top_songs }) {
   const dispatch = useDispatch()
   dispatch(get_category(data))

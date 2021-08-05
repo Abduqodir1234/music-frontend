@@ -8,11 +8,12 @@ import CategoryNavigation from "../Components/CategoryNavigation"
 import { useSelector, useDispatch } from "react-redux"
 import get_music_id from "../Redux/Actions/get_music_id"
 import open_player from "../Redux/Actions/openplayer"
-import { ArrowDownward, DoneTwoTone, GetApp } from "@material-ui/icons"
+import { GetApp } from "@material-ui/icons"
 import Link from "next/link"
 import { useRouter } from "next/dist/client/router"
 import get_one_music_info from "../Redux/Actions/get_one_music_info"
 import chosen_category from "../Redux/Actions/chosen_catgory"
+import picture2 from "../public/play.svg"
 import { useEffect } from "react"
 const CategoryList = ({ data }) => {
     const music = useSelector(state => state.main.one_category_with_musics)
@@ -41,13 +42,13 @@ const CategoryList = ({ data }) => {
     }
     return (
         <CategoryNavigation data={data} className="fixed-left h-100">
-            <div className="h-100" style={{ marginLeft: "40px", marginRight: "40px", marginBottom: "150px", backgroundColor: "#f5feff", minHeight: "100%" }}><br /><br />
-                <div style={{ backgroundColor: "#f5feff" }}>
+            <div className="h-100" style={{ marginLeft: "40px", marginRight: "40px", marginBottom: "150px", backgroundColor: "#defaff", minHeight: "100%" }}><br /><br />
+                <div style={{ backgroundColor: "#defaff" }}>
                     {category !== ""
                         ?
                         <>
                             <h3 style={{}}>
-                                <AppsIcon style={{ color: "red", marginBottom: "3px" }} /> {category}
+                                <AppsIcon style={{color:"red", marginBottom: "3px" }} /> {category}
                             </h3><br />
                         </>
                         :
@@ -74,13 +75,29 @@ const CategoryList = ({ data }) => {
                                                     paddingBottom: "0px",
                                                     paddingRight: "15px"
                                                 }}
-                                                onClick={() => musichandle(category.id)}
+                                                
                                             >
-                                                <div className="row">
-                                                    <div className="col-lg-1 col-md-1 col-2" style={{ borderRadius: "15px", overflow: "hidden", height: "50px", width: "50px" }}>
-                                                        <Image src={category.photo ? port + category.photo : "https://api.wolt.uz/storage/images/noimg.jpg"} width={200} height={200} />
+                                                <div className="row" onClick={() => musichandle(category.id)}>
+                                                    <div 
+                                                    className="col-lg-1 col-md-1 col-2" 
+                                                    style=
+                                                        {{ 
+                                                            borderRadius: "15px",
+                                                             overflow: "hidden",
+                                                              height: "50px", 
+                                                              width: "50px" 
+                                                        }}
+                                                    >
+                                                        <Image
+                                                         src={picture2} 
+                                                         width={200} 
+                                                         height={200}
+                                                        />
                                                     </div>
-                                                    <div className="col-lg-9 col-md-10 col-8" style={{ textAlign: "center", overflow: "hidden" }}>
+                                                    <div 
+                                                        className="col-lg-9 col-md-10 col-8" 
+                                                        onClick={() => musichandle(category.id)} 
+                                                        style={{ textAlign: "center", overflow: "hidden" }}>
                                                         {category.artist}-{category.title}
                                                     </div>
                                                     <div className="col-lg-1 col-md-1 col-1">

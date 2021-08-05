@@ -7,12 +7,6 @@ import picture from "../public/picture.png"
 // Import Swiper styles
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css"
-
-
-// import Swiper core and required modules
-import SwiperCore, {
-  Pagination
-} from 'swiper/core';
 import Image from "next/image";
 import { useWindowSize } from "./Navbar";
 

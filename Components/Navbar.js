@@ -248,7 +248,7 @@ function MiniDrawer({ children }) {
 
           </div>
           <div>
-            <div style={{ backgroundColor: "#f5feff" }}>
+            <div style={{ backgroundColor: "#defaff" }}>
               {children}
             </div>
             <div style={style} className="fixed-bottom"  >
@@ -444,7 +444,7 @@ function MiniDrawer({ children }) {
             </List>
             <Divider />
           </Drawer>
-          <div style={{ marginTop: "70px", backgroundColor: "#f5feff ", width: "100%", height: "100%", marginLeft: "70px" }}>
+          <div style={{ marginTop: "70px", backgroundColor: "#defaff ", width: "100%", height: "100%", marginLeft: "70px" }}>
             {children}
             <div style={style} className="fixed-bottom"  >
               {/* <div style={{position:"absolute",top:"0%",left:"0px",width:"100%"}}> */}

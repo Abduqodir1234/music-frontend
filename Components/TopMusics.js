@@ -3,7 +3,7 @@ import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import picture from "../public/picture.png"
-
+import picture2 from "../public/play.svg"
 // Import Swiper styles
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css"
@@ -58,7 +58,7 @@ export default function TopMusics() {
         {top_songs.map(song =>
           <SwiperSlide key={song.id} onClick={() => musichandle(song.id)}>
             <div  >
-              <Image className="crsimg" width={300} height={300} src={song.photo ? port + song.photo : picture}></Image>
+              <Image className="crsimg" width={300} height={300} src={picture2}></Image>
               {/* <div class="overlay">
                 <div class="text">
                   <PlayCircleOutlineOutlinedIcon
