@@ -19,8 +19,10 @@ import get_artists from '../Redux/Actions/getartists'
 import get_top_songs from '../Redux/Actions/get_top_songs'
 import MobileCarouselGroup from "../Components/MobileCarouselGroup";
 import DesktopMainCarousel from "../Components/DesktopMain";
-export default function Home({ data, artists, top_songs }) {
+import get_recent_musics from "../Redux/Actions/get_recent_ones";
+export default function Home({ data, artists, top_songs,recentones }) {
   const dispatch = useDispatch()
+  dispatch(get_recent_musics(recentones))
   dispatch(get_category(data))
   dispatch(get_artists(artists))
   dispatch(get_top_songs(top_songs))
@@ -73,6 +75,6 @@ Home.getInitialProps = async () => {
   })
 
   const topsongs = await request2_2.data;
-  console.log(request2, request2_1, request2_2)
-  return { data: answer, artists: artist, top_songs: topsongs }
+  const request2_3 = await axios.get(port + "/api/songs/recent/")
+  return { data: answer, artists: artist, top_songs: topsongs,recentones:request2_3.data}
 }

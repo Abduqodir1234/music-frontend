@@ -16,7 +16,7 @@ import { port } from "../port";
 import get_music_id from "../Redux/Actions/get_music_id"
 import open_player from "../Redux/Actions/openplayer"
 import get_one_music_info from "../Redux/Actions/get_one_music_info"
-
+import Marquee from "react-fast-marquee";
 // // install Swiper modules
 // SwiperCore.use([Pagination]);
 
@@ -87,7 +87,8 @@ export default function TopMusics() {
               </div> */}
               <br />
               <div style={{ fontWeight: "light", fontSize: "small" }}></div>
-              {song.artist}-{song.title}
+           {song.artist}-{song.title}
+
 
             </div>
 
