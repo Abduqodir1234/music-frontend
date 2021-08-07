@@ -20,27 +20,21 @@ import SearchIcon from '@material-ui/icons/Search';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import Carousel from "../Components/Carousel"
 import "bootstrap/dist/css/bootstrap.min.css"
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import FormControl from "@material-ui/core/FormControl"
 import homeicon from "../public/home.svg"
 import categoryicon from '../public/category.svg'
 import usericon from "../public/user-2.svg"
+import play from "../public/play.svg"
+import { GetApp} from "@material-ui/icons"
 import {
   Grid,
-  Input,
-  InputLabel,
   Paper,
   TextField,
   InputAdornment,
-  Select,
   MenuItem,
   Button,
-  Menu,
   Popper,
   Grow,
   ClickAwayListener,
@@ -49,12 +43,17 @@ import {
 import logo from "../public/logo.png"
 import Image from "next/image"
 import { useRouter } from 'next/dist/client/router';
+import {useDispatch, useSelector} from "react-redux";
+import Marquee from "react-fast-marquee";
+import axios from "axios";
+import {port} from "../port";
+import get_one_music_info from "../Redux/Actions/get_one_music_info";
+import get_music_id from "../Redux/Actions/get_music_id";
+import open_player from "../Redux/Actions/openplayer";
 const drawerWidth = 240;
 
 
 export function useWindowSize() {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
   const [windowSize, setWindowSize] = useState({
     width: undefined,
     height: undefined,
@@ -145,8 +144,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function MiniDrawer({ children }) {
+  const [desktop_searchbar,setsearch_bar] = useState(false)
+  const [more,setmore] = useState(false)
   const router = useRouter()
-  const [age, setage] = useState()
   const [lang, setlang] = useState("uz")
   const windowSize = useWindowSize()
   const classes = useStyles();
@@ -154,7 +154,27 @@ function MiniDrawer({ children }) {
   const [open, setOpen] = React.useState(false);
   const [value, setvalue] = useState(router.pathname)
   const [languagedropdown, setlanguagedropdown] = useState(false)
+  const [searchbar,setsearchbar] = useState(false)
+  const [searchitems,setitems] = useState([])
   const anchorRef = React.useRef(null);
+  let data = useSelector(state=>state.main.all_songs)
+  const dispatch = useDispatch()
+  const musichandle = (id) => {
+    axios.get(port + "/api/songs/" + id)
+        .then(response => {
+          dispatch(get_one_music_info(response.data))
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    dispatch(get_music_id(id))
+    dispatch(open_player())
+
+  }
+  const download = (id) => {
+    let url = port + "/api/download/song/" + id
+    router.push(url)
+  }
   let style = {}
   if (windowSize.width < 889) {
     style = {
@@ -191,7 +211,17 @@ function MiniDrawer({ children }) {
       setlanguagedropdown(false);
     }
   }
-
+  const handleSearch = (e) =>{
+    const t = data.filter(music=>{
+    let x = music.artist + " " + music.title;
+    let z = music.artist + "-" + music.title;
+    if(z.toLowerCase().includes(e.target.value.toLowerCase())){
+    }
+      return z.toLowerCase().includes(e.target.value.toLowerCase()) || music.category.title.toLowerCase().includes(e.target.value.toLowerCase()) || music.artist.toLowerCase().includes(e.target.value.toLowerCase()) || music.title.toLowerCase().includes(e.target.value.toLowerCase()) || x.toLowerCase().includes(e.target.value.toLowerCase()) ? music : ""
+    });
+    setitems(t.slice(0,10));
+    t.length > 10 ? setmore(true) : setmore(false)
+  }
   return (
     <div>
       {windowSize.width < 889
@@ -241,8 +271,85 @@ function MiniDrawer({ children }) {
             </Grid>
             <Grid container>
 
-              <Grid xs={12}>
-                <center> <input type="search" className="search" placeholder="Search" style={{ borderRadius: "8px", width: "97%", border: "2px solid grey", marginTop: "10px", padding: "2px", paddingLeft: "10px" }} /></center>
+              <Grid xs={12} style={{position:"relative"}}>
+                <div style={{position:"absolute",left:0,right:"0px",zIndex:"1000000"}}>
+                 <center>
+                   <input
+                       onInput={()=>setsearchbar(true)}
+                       onMouseLeave={()=>setsearchbar(false)}
+
+                       type="search"
+                       onChange={(e)=>handleSearch(e)}
+                       className="search"
+                       placeholder="Search"
+                       style=
+                           {{
+                             borderRadius: "8px",
+                             width: "97%",
+                             border: "2px solid grey",
+                             marginTop: "10px",
+                             padding: "2px",
+                             paddingLeft: "10px"
+                           }}
+                   />
+                 </center>
+                  {searchbar
+                      ?
+                      <center
+
+
+                      >
+                           <div
+                               onMouseEnter={()=>setsearchbar(true)}
+                               onMouseLeave={()=>setsearchbar(false)}
+                               onClick={()=>setsearchbar(true)}
+                               onFocus={()=>setsearchbar(true)}
+                               style=
+                                   {{
+                                     borderRadius: "8px",
+                                     width: "97%",
+                                     border: "2px solid grey",
+                                     marginTop: "-10px",
+                                     padding: "2px",
+                                     paddingLeft: "10px",
+                                     height:"100%",
+                                     backgroundColor:"white",
+
+                                   }}
+                           >
+                             {searchitems.map(music=>(
+                                 <>
+                                 <div key={music.id} className="col-md-12 col-lg-12 col-12 col-sm-12" style={{height:"25px",marginTop:"20px"}}>
+                                   <div className="row">
+                                     <div className="col-md-2 col-lg-2 col-2 col-sm-2" onClick={()=>musichandle(music.id)}>
+                                       <Image src={play} width={30} height={30}  />
+                                     </div>
+                                     <div className="col-md-8 col-sm-8 col-8" onClick={()=>musichandle(music.id)}>
+                                       <Marquee gradient="none" speed={30}>{music.artist} - {music.title}</Marquee>
+                                     </div>
+                                     <div className="col-md-2 col-sm-2 col-2">
+                                       <GetApp onClick={()=>download(music.id)} />
+                                     </div>
+                                   </div>
+                                 </div><hr/>
+                                 </>
+                             ))}
+                             {more ?  <>
+                                   <div
+                                       className="col-md-12 col-sm-12 col-12 text-center text-primary"
+                                   >
+                                     See Full Results
+                                   </div><br/>
+                                 </>
+                                 :
+                                 ""
+                             }
+                           </div>
+                         </center>
+                      :
+                        ""
+                      }
+                </div>
               </Grid>
             </Grid>
 
@@ -310,7 +417,12 @@ function MiniDrawer({ children }) {
                   />
                 }
               />
-              <BottomNavigationAction label="Search" onClick={() => setvalue("/search")} value="/search" icon={<SearchIcon />} />
+              <BottomNavigationAction
+                  label="Search"
+                  onClick={() => setvalue("/search")}
+                  value="/search"
+                  icon={<SearchIcon />}
+              />
             </BottomNavigation>
           </div>
         </div>
@@ -344,8 +456,11 @@ function MiniDrawer({ children }) {
                     Music Store
                   </Typography>
                 </Grid>
-                <Grid item xs={7}>
+                <Grid item xs={7} style={{position:"relative"}}>
                   <TextField
+                    onInput={()=>setsearch_bar(true)}
+                    onMouseLeave={()=>setsearch_bar(false)}
+                    onChange={(e)=>handleSearch(e)}
                     fullWidth
                     style={{ backgroundColor: "white" }}
                     size="small"
@@ -361,8 +476,61 @@ function MiniDrawer({ children }) {
                       ),
                     }}
                   />
+                  <div>
+                    <div style={{
+                      position:"absolute",
+                      left:"0px",
+                      top:"40px",}}>
+                    {desktop_searchbar
+                        ?
+                          <div
+                              onMouseEnter={()=>setsearch_bar(true)}
+                              onMouseLeave={()=>setsearch_bar(false)}
+                              onClick={()=>setsearch_bar(true)}
+                              onFocus={()=>setsearch_bar(true)}
+                              style=
+                                  {{
+                                    width:"100%",
+                                    height:"100%",
+                                    backgroundColor:"white",
+                                    border:" 1px solid grey",
+                                    zIndex:100
+                                  }}
+                          >
+                            {searchitems.map(music=>(
+                                <center key={music.id}>
+                                  <div  className="col-md-12 col-lg-12 col-12 col-sm-12" style={{height:"25px",marginTop:"20px",color:"black"}}>
+                                    <div className="row">
+                                      <div className="col-md-2 col-lg-2 col-2 col-sm-2" onClick={()=>musichandle(music.id)}>
+                                        <Image src={play} width={30} height={30}  />
+                                      </div>
+                                      <div className="col-md-8 col-sm-8 col-8" onClick={()=>musichandle(music.id)}>
+                                        <Marquee gradient="none" speed={30}>{music.artist} - {music.title}</Marquee>
+                                      </div>
+                                      <div className="col-md-2 col-sm-2 col-2">
+                                        <GetApp onClick={()=>download(music.id)} />
+                                      </div>
+                                    </div>
+                                  </div><hr/>
+                                </center>
+                            ))}
+                            {more ?  <>
+                                        <div
+                                          className="col-md-12 col-sm-12 col-12 text-center text-primary"
+                                        >
+                                          See Full Results
+                                        </div><br/>
+                                     </>
+                                :
+                                ""
+                            }
 
-
+                          </div>
+                        :
+                        ""
+                    }
+                    </div>
+                  </div>
                 </Grid>
                 <Grid item xs={2} style={{ textAlign: "center" }}>
                   <Button
@@ -376,7 +544,13 @@ function MiniDrawer({ children }) {
                   >
                     {lang}
                   </Button>
-                  <Popper style={{ zIndex: 10000000000 }} open={languagedropdown} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                  <Popper
+                      style={{ zIndex: 10000000000 }}
+                      open={languagedropdown}
+                      anchorEl={anchorRef.current}
+                      role={undefined}
+                      transition
+                      disablePortal>
                     {({ TransitionProps, placement }) => (
                       <Grow
                         {...TransitionProps}
@@ -437,7 +611,7 @@ function MiniDrawer({ children }) {
             </List>
             <Divider />
             <List>
-              <ListItem button>
+              <ListItem button onClick={() => router.push("/artists")}>
                 <ListItemIcon><PersonIcon /></ListItemIcon>
                 <ListItemText primary="Artists" />
               </ListItem>

@@ -27,7 +27,7 @@ const Player = () => {
                             src={port + "/api/download/song/" + music_id}
                             onPlay={e => console.log("onPlay")}
                             showDownloadProgress
-                            showSkipControls
+
                             header={info.artist + "-" + info.title}
                             autoPlay
                         // other props here

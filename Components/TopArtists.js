@@ -17,6 +17,7 @@ import Image from "next/image";
 import { useWindowSize } from "./Navbar";
 import { useSelector } from "react-redux";
 import { port } from "../port";
+import Marquee from "react-fast-marquee";
 
 // // install Swiper modules
 // SwiperCore.use([Pagination]);
@@ -46,8 +47,8 @@ export default function TopArtists() {
         {artists.map(artist =>
           <SwiperSlide key={artist.id}>
             <div >
-              <Image className="crsimg" width={300} height={300} src={port + artist.photo}></Image><br />
-              {artist.name}
+              <Image className="crsimg" width={100} height={100} src={port + artist.photo}></Image><br />
+              <Marquee style={{width:'100px'}} speed={30} gradient="none" >{artist.name} <div style={{width:"20px"}}></div></Marquee>
             </div>
           </SwiperSlide>
         )}

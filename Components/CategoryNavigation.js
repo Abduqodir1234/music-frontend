@@ -21,7 +21,7 @@ const CategoryNavigation = ({ children, data }) => {
     return (
         <div>
             <div className="containere">
-                <div className="category_navigation"><br />
+                <div className="category_navigation" style={{paddingTop:"30px"}}><br />
                     {data.category.map(category => (
                         <div
                             style={{ marginBottom: "100px" }}
@@ -38,7 +38,7 @@ const CategoryNavigation = ({ children, data }) => {
                     )}
                 </div>
             </div>
-            <div style={{ marginLeft: "100px" }}>
+            <div style={{ marginLeft: "100px"}}>
                 {children}
             </div>
         </div>

@@ -6,7 +6,7 @@ import { useWindowSize } from "./Navbar";
 import {useDispatch, useSelector} from "react-redux";
 import { port } from "../port";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
-import {ArrowRight, GetApp} from "@material-ui/icons"
+import { GetApp} from "@material-ui/icons"
 import picture2 from "../public/play.svg"
 import AppsIcon from "@material-ui/icons/Apps";
 import axios from "axios";
@@ -15,13 +15,18 @@ import get_music_id from "../Redux/Actions/get_music_id";
 import open_player from "../Redux/Actions/openplayer";
 import Marquee from "react-fast-marquee";
 import PersonIcon from "@material-ui/icons/Person";
+import {useRouter} from "next/dist/client/router";
 export default function DesktopMainCarousel() {
     const artists = useSelector(state => state.main.artists);
     const topmusics = useSelector(state => state.main.top_songs);
     const playlists = useSelector(state => state.main.category);
     const recents = useSelector(state=> state.main.recent_ones)
-    const size = useWindowSize()
     const dispatch = useDispatch()
+    const router = useRouter()
+    const download = (id) => {
+        let url = port + "/api/download/song/" + id
+        router.push(url)
+    }
     const musichandle = (id) => {
         axios.get(port + "/api/songs/" + id)
             .then(response => {
@@ -72,8 +77,9 @@ export default function DesktopMainCarousel() {
                                                 }}
                                                 
                                             >
-                                                <div className="row" onClick={() => musichandle(category.id)}>
-                                                    <div 
+                                                <div className="row" >
+                                                    <div
+                                                    onClick={() => musichandle(category.id)}
                                                     className="col-lg-1 col-md-2 col-sm-2 col-2"
                                                     style=
                                                         {{ 
@@ -145,8 +151,9 @@ export default function DesktopMainCarousel() {
                                                       }}
 
                                               >
-                                                  <div className="row" onClick={() => musichandle(category.id)}>
+                                                  <div className="row" >
                                                       <div
+                                                          onClick={() => musichandle(category.id)}
                                                           className="col-lg-1 col-md-2 col-sm-2 col-2"
                                                           style=
                                                               {{

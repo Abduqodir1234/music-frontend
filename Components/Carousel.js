@@ -9,6 +9,7 @@ import { useWindowSize } from "./Navbar";
 import { port } from "../port";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Marquee from "react-fast-marquee";
 
 // // install Swiper modules
 // SwiperCore.use([Pagination]);
@@ -39,8 +40,8 @@ const Carousel = () => {
         {data.category.map(category =>
           <SwiperSlide key={category.id}>
             <div style={{color:"black"}}>
-              <Image className="crsimg" width={300} height={300} src={port + category.photo}></Image><br />
-              {category.title}
+              <Image className="crsimg" width={100} height={100} src={port + category.photo}></Image><br />
+             <Marquee style={{width: '100px'}} speed={30} gradient="none" > {category.title}<div style={{width:"20px"}}></div></Marquee>
             </div>
           </SwiperSlide>
         )}

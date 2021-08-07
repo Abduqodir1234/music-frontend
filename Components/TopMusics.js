@@ -17,6 +17,8 @@ import get_music_id from "../Redux/Actions/get_music_id"
 import open_player from "../Redux/Actions/openplayer"
 import get_one_music_info from "../Redux/Actions/get_one_music_info"
 import Marquee from "react-fast-marquee";
+import {GetApp} from "@material-ui/icons";
+import {useRouter} from "next/dist/client/router";
 // // install Swiper modules
 // SwiperCore.use([Pagination]);
 
@@ -34,87 +36,64 @@ export default function TopMusics() {
       })
     dispatch(get_music_id(id))
     dispatch(open_player())
-
+  }
+  const router = useRouter()
+  const download = (id) => {
+    let url = port + "/api/download/song/" + id
+    router.push(url)
   }
   const size = useWindowSize()
   return (
-    <>
-      <Swiper slidesPerView={3} spaceBetween={15} pagination={{
-        "clickable": true
-      }} breakpoints={{
-        "640": {
-          "slidesPerView": 3,
-          "spaceBetween": 4,
-        },
-        "768": {
-          "slidesPerView": 6,
-          "spaceBetween": 8,
-        },
-        "1024": {
-          "slidesPerView": 9,
-          "spaceBetween": 12,
-        }
-      }} className="mySwiper">
-        {top_songs.map(song =>
-          <SwiperSlide key={song.id} onClick={() => musichandle(song.id)}>
-            <div  >
-              <Image className="crsimg" width={300} height={300} src={picture2}></Image>
-              {/* <div class="overlay">
-                <div class="text">
-                  <PlayCircleOutlineOutlinedIcon
-                    style=
+      <div className="col-md-10">
+        {top_songs.map(category =>
+            <div
+                className="col-md-5 col-lg-5 col-12"
+                key={category.id}
+                style=
                     {{
-                      width: "50px",
-                      height: "50px",
-                      fontWeight: "bolder",
-                      color: "black"
+                      backgroundColor: "white",
+                      borderRadius: "15px",
+                      paddingLeft: "15px",
+                      marginBottom: "10px",
+                      marginRight: "10px",
+                      marginLeft: "10px",
+                      paddingTop: "20px",
+                      paddingBottom: "0px",
+                      paddingRight: "15px"
                     }}
+
+            >
+              <div className="row" >
+                <div
+                    onClick={() => musichandle(category.id)}
+                    className="col-lg-1 col-md-2 col-sm-2 col-2"
+                    style=
+                        {{
+                          borderRadius: "15px",
+                          overflow: "hidden",
+                          height: "50px",
+                          width: "50px"
+                        }}
+                >
+                  <Image
+                      src={picture2}
+                      width={200}
+                      height={200}
                   />
-                  <div
-                    style=
-                    {{
-                      fontSize: "xx-small",
-                      width: "100px",
-                      color: "black",
-                      fontWeight: 'bold',
-                      overflow: "hidden",
-                      wordBreak: "break-all"
-                    }}
-                  >
-                    {song.artist}-{song.title}
-                  </div>
                 </div>
-              </div> */}
-              <br />
-              <div style={{ fontWeight: "light", fontSize: "small" }}></div>
-           {song.artist}-{song.title}
-
-
+                <div
+                    className="col-lg-9 col-md-7 col-sm-9 col-9"
+                    onClick={() => musichandle(category.id)}
+                    style={{textAlign:"justify", overflow: "hidden" }}>
+                  <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.artist}-{category.title}</Marquee>
+                </div>
+                <div className="col-lg-1 col-md-2 col-sm-1 col-1">
+                  <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
+                </div>
+              </div>
             </div>
-
-          </SwiperSlide>)}
-        {size.width > 889 ? <div><SwiperSlide>
-          <div >
-
-          </div>
-        </SwiperSlide>
-          <SwiperSlide>
-            <div >
-
-            </div>
-          </SwiperSlide>
-          {/* <SwiperSlide>
-      <div >
-      
+        )
+        }
       </div>
-    </SwiperSlide> */}
-          {/* <SwiperSlide>
-      <div >
-      
-      </div>
-    </SwiperSlide> */}
-        </div> : ""}
-      </Swiper>
-    </>
   )
 }

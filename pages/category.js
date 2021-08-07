@@ -15,6 +15,7 @@ import get_one_music_info from "../Redux/Actions/get_one_music_info"
 import chosen_category from "../Redux/Actions/chosen_catgory"
 import picture2 from "../public/play.svg"
 import { useEffect } from "react"
+import Marquee from "react-fast-marquee";
 const CategoryList = ({ data }) => {
     const music = useSelector(state => state.main.one_category_with_musics)
     const category = useSelector(state => state.main.chosen_category_title)
@@ -98,7 +99,7 @@ const CategoryList = ({ data }) => {
                                                         className="col-lg-9 col-md-10 col-8" 
                                                         onClick={() => musichandle(category.id)} 
                                                         style={{ textAlign: "center", overflow: "hidden" }}>
-                                                        {category.artist}-{category.title}
+                                                       <Marquee speed={30} gradient='none'> {category.artist}-{category.title} <div style={{width:'20px'}}></div></Marquee>
                                                     </div>
                                                     <div className="col-lg-1 col-md-1 col-1">
                                                         <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />

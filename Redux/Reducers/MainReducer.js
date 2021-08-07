@@ -7,11 +7,19 @@ const initialstate = {
     playing_music_info: [],
     one_category_with_musics: [],
     chosen_category_title: "",
-    recent_ones:[]
+    recent_ones:[],
+    all_songs:[],
+    all:[],
+    chosen_artist:undefined
 }
 
 export const mainreducer = (state = initialstate, action) => {
     switch (action.type) {
+        case "GET_ARTIST":
+            return {
+                ...state,
+                chosen_artist: action.payload
+            }
         case "GET_CATEGORY":
             return {
                 ...state,
@@ -62,7 +70,16 @@ export const mainreducer = (state = initialstate, action) => {
                 ...state,
                 recent_ones: action.payload
             }
-
+        case "GET_ALL_MUSICS":
+            return {
+                ...state,
+                all_songs: action.payload
+            }
+        case "GET_ALL":
+            return {
+                ...state,
+                all: action.payload
+            }
         default: return state
     }
 }
