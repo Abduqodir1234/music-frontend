@@ -1,1 +1,1 @@
-export let port = "https://uzmp3.herokuapp.com"
+export let port = "http://uzmp3.herokuapp.com"

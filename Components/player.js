@@ -6,7 +6,7 @@ import { port } from '../port';
 import close_player from "../Redux/Actions/closeplayer"
 import get_music_id from "../Redux/Actions/get_music_id"
 
-const Player = () => {
+const Player2 = () => {
     const display_player = useSelector(state => state.main.player_display)
     const music_id = useSelector(state => state.main.plays_music_id)
     const dispatch = useDispatch()
@@ -15,6 +15,7 @@ const Player = () => {
         dispatch(close_player())
         dispatch(get_music_id(undefined))
     }
+
     return (
         <div>
             {display_player
@@ -24,13 +25,11 @@ const Player = () => {
                         <AudioPlayer
                             style={{ backgroundColor: "white", color: "black", boxShadow: "2px -12px 5px 0px lavender" }}
                             autoPlayAfterSrcChange
-                            src={port + "/api/download/song/" + music_id}
+                            src={port + info.music_file}
                             onPlay={e => console.log("onPlay")}
                             showDownloadProgress
-
                             header={info.artist + "-" + info.title}
                             autoPlay
-                        // other props here
                         />
                     </div>
                     <div style={{ position: "absolute", zIndex: 1000000000, bottom: "80px", right: '10px', cursor: "pointer" }}>
@@ -43,4 +42,4 @@ const Player = () => {
         </div>
     )
 }
-export default Player;
+export default Player2;

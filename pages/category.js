@@ -39,7 +39,7 @@ const CategoryList = ({ data }) => {
     const router = useRouter()
     const download = (id) => {
         let url = port + "/api/download/song/" + id
-        router.push(url)
+        router.push(url, null, { shallow: true })
     }
     return (
         <CategoryNavigation data={data} className="fixed-left h-100">
@@ -49,7 +49,7 @@ const CategoryList = ({ data }) => {
                         ?
                         <>
                             <h3 style={{}}>
-                                <AppsIcon style={{color:"red", marginBottom: "3px" }} /> {category}
+                                <AppsIcon style={{ color: "red", marginBottom: "3px" }} /> {category}
                             </h3><br />
                         </>
                         :
@@ -76,30 +76,30 @@ const CategoryList = ({ data }) => {
                                                     paddingBottom: "0px",
                                                     paddingRight: "15px"
                                                 }}
-                                                
+
                                             >
                                                 <div className="row" onClick={() => musichandle(category.id)}>
-                                                    <div 
-                                                    className="col-lg-1 col-md-1 col-2" 
-                                                    style=
-                                                        {{ 
+                                                    <div
+                                                        className="col-lg-1 col-md-1 col-2"
+                                                        style=
+                                                        {{
                                                             borderRadius: "15px",
-                                                             overflow: "hidden",
-                                                              height: "50px", 
-                                                              width: "50px" 
+                                                            overflow: "hidden",
+                                                            height: "50px",
+                                                            width: "50px"
                                                         }}
                                                     >
                                                         <Image
-                                                         src={picture2} 
-                                                         width={200} 
-                                                         height={200}
+                                                            src={picture2}
+                                                            width={200}
+                                                            height={200}
                                                         />
                                                     </div>
-                                                    <div 
-                                                        className="col-lg-9 col-md-10 col-8" 
-                                                        onClick={() => musichandle(category.id)} 
+                                                    <div
+                                                        className="col-lg-9 col-md-10 col-8"
+                                                        onClick={() => musichandle(category.id)}
                                                         style={{ textAlign: "center", overflow: "hidden" }}>
-                                                       <Marquee speed={30} gradient='none'> {category.artist}-{category.title} <div style={{width:'20px'}}></div></Marquee>
+                                                        <Marquee speed={30} gradient='none'> {category.artist}-{category.title} <div style={{ width: '20px' }}></div></Marquee>
                                                     </div>
                                                     <div className="col-lg-1 col-md-1 col-1">
                                                         <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />

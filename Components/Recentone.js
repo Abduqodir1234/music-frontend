@@ -17,8 +17,8 @@ import get_music_id from "../Redux/Actions/get_music_id"
 import open_player from "../Redux/Actions/openplayer"
 import get_one_music_info from "../Redux/Actions/get_one_music_info"
 import Marquee from "react-fast-marquee";
-import {GetApp} from "@material-ui/icons";
-import {useRouter} from "next/dist/client/router";
+import { GetApp } from "@material-ui/icons";
+import { useRouter } from "next/dist/client/router";
 // // install Swiper modules
 // SwiperCore.use([Pagination]);
 
@@ -41,7 +41,7 @@ export default function TopMusics() {
     const router = useRouter()
     const download = (id) => {
         let url = port + "/api/download/song/" + id
-        router.push(url)
+        router.push(url, null, { shallow: true })
     }
     return (
         <div className="col-md-10">
@@ -50,17 +50,17 @@ export default function TopMusics() {
                     className="col-md-5 col-lg-5 col-12"
                     key={category.id}
                     style=
-                        {{
-                            backgroundColor: "white",
-                            borderRadius: "15px",
-                            paddingLeft: "15px",
-                            marginBottom: "10px",
-                            marginRight: "10px",
-                            marginLeft: "10px",
-                            paddingTop: "20px",
-                            paddingBottom: "0px",
-                            paddingRight: "15px"
-                        }}
+                    {{
+                        backgroundColor: "white",
+                        borderRadius: "15px",
+                        paddingLeft: "15px",
+                        marginBottom: "10px",
+                        marginRight: "10px",
+                        marginLeft: "10px",
+                        paddingTop: "20px",
+                        paddingBottom: "0px",
+                        paddingRight: "15px"
+                    }}
 
                 >
                     <div className="row" >
@@ -68,12 +68,12 @@ export default function TopMusics() {
                             onClick={() => musichandle(category.id)}
                             className="col-lg-1 col-md-2 col-sm-2 col-2"
                             style=
-                                {{
-                                    borderRadius: "15px",
-                                    overflow: "hidden",
-                                    height: "50px",
-                                    width: "50px"
-                                }}
+                            {{
+                                borderRadius: "15px",
+                                overflow: "hidden",
+                                height: "50px",
+                                width: "50px"
+                            }}
                         >
                             <Image
                                 src={picture2}
@@ -84,7 +84,7 @@ export default function TopMusics() {
                         <div
                             className="col-lg-9 col-md-7 col-sm-9 col-9"
                             onClick={() => musichandle(category.id)}
-                            style={{textAlign:"justify", overflow: "hidden" }}>
+                            style={{ textAlign: "justify", overflow: "hidden" }}>
                             <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.artist}-{category.title}</Marquee>
                         </div>
                         <div className="col-lg-1 col-md-2 col-sm-1 col-1">

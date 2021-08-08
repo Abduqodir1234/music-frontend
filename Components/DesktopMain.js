@@ -3,10 +3,10 @@ import React, { useRef, useState } from "react";
 import picture from "../public/picture.png"
 import Image from "next/image";
 import { useWindowSize } from "./Navbar";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { port } from "../port";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
-import { GetApp} from "@material-ui/icons"
+import { GetApp } from "@material-ui/icons"
 import picture2 from "../public/play.svg"
 import AppsIcon from "@material-ui/icons/Apps";
 import axios from "axios";
@@ -15,17 +15,17 @@ import get_music_id from "../Redux/Actions/get_music_id";
 import open_player from "../Redux/Actions/openplayer";
 import Marquee from "react-fast-marquee";
 import PersonIcon from "@material-ui/icons/Person";
-import {useRouter} from "next/dist/client/router";
+import { useRouter } from "next/dist/client/router";
 export default function DesktopMainCarousel() {
     const artists = useSelector(state => state.main.artists);
     const topmusics = useSelector(state => state.main.top_songs);
     const playlists = useSelector(state => state.main.category);
-    const recents = useSelector(state=> state.main.recent_ones)
+    const recents = useSelector(state => state.main.recent_ones)
     const dispatch = useDispatch()
     const router = useRouter()
     const download = (id) => {
         let url = port + "/api/download/song/" + id
-        router.push(url)
+        router.push(url, null, { shallow: true })
     }
     const musichandle = (id) => {
         axios.get(port + "/api/songs/" + id)
@@ -41,14 +41,14 @@ export default function DesktopMainCarousel() {
     }
     return (
         <div style={{ width: "100%", height: "100%" }}>
-              <div className="h-100" style={{ marginLeft: "40px", marginRight: "40px", backgroundColor: "#defaff", minHeight: "100%" }}><br /><br />
-               {/* ---------------------------Top Music-------------------------------- */}
+            <div className="h-100" style={{ marginLeft: "40px", marginRight: "40px", backgroundColor: "#defaff", minHeight: "100%" }}><br /><br />
+                {/* ---------------------------Top Music-------------------------------- */}
                 <div style={{ backgroundColor: "#defaff" }}>
                     {topmusics !== ""
                         ?
                         <>
                             <h3 style={{}}>
-                            <h4><MusicNoteIcon style={{color:"red", marginBottom: "3px", marginRight: "3px" }} />Top 10 Musics</h4>
+                                <h4><MusicNoteIcon style={{ color: "red", marginBottom: "3px", marginRight: "3px" }} />Top 10 Musics</h4>
                             </h3>
                         </>
                         :
@@ -75,30 +75,30 @@ export default function DesktopMainCarousel() {
                                                     paddingBottom: "0px",
                                                     paddingRight: "15px"
                                                 }}
-                                                
+
                                             >
                                                 <div className="row" >
                                                     <div
-                                                    onClick={() => musichandle(category.id)}
-                                                    className="col-lg-1 col-md-2 col-sm-2 col-2"
-                                                    style=
-                                                        {{ 
+                                                        onClick={() => musichandle(category.id)}
+                                                        className="col-lg-1 col-md-2 col-sm-2 col-2"
+                                                        style=
+                                                        {{
                                                             borderRadius: "15px",
-                                                             overflow: "hidden",
-                                                              height: "50px", 
-                                                              width: "50px" 
+                                                            overflow: "hidden",
+                                                            height: "50px",
+                                                            width: "50px"
                                                         }}
                                                     >
                                                         <Image
-                                                         src={picture2}
-                                                         width={200}
-                                                         height={200}
+                                                            src={picture2}
+                                                            width={200}
+                                                            height={200}
                                                         />
                                                     </div>
-                                                    <div 
+                                                    <div
                                                         className="col-lg-9 col-md-7 col-sm-9 col-9"
-                                                        onClick={() => musichandle(category.id)} 
-                                                        style={{textAlign:"justify", overflow: "hidden" }}>
+                                                        onClick={() => musichandle(category.id)}
+                                                        style={{ textAlign: "justify", overflow: "hidden" }}>
                                                         <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.artist}-{category.title}</Marquee>
                                                     </div>
                                                     <div className="col-lg-1 col-md-2 col-sm-1 col-1">
@@ -113,92 +113,92 @@ export default function DesktopMainCarousel() {
                             :
                             ""
                     }
-                    </div>
-                  <br/>
-                  <br/>
-                  {/*--------------------Recent Ones-------------------------*/}
-                  <div style={{ backgroundColor: "#defaff" }}>
-                      {recents !== ""
-                          ?
-                          <>
-                              <h3 style={{}}>
-                                  <h4><MusicNoteIcon style={{color:"red", marginBottom: "3px", marginRight: "3px" }} />Top 10 Recents</h4>
-                              </h3>
-                          </>
-                          :
-                          ""
-                      }
-                      {
-                          recents !== [] && recents.length !== 0 ?
-                              (
-                                  <div className="container" style={{ width: "100%" }} >
-                                      <div className="row">
-                                          {recents.map(category =>
-                                              <div
-                                                  className="col-md-5 col-lg-5 col-12"
-                                                  key={category.id}
-                                                  style=
-                                                      {{
-                                                          backgroundColor: "white",
-                                                          borderRadius: "15px",
-                                                          paddingLeft: "15px",
-                                                          marginBottom: "10px",
-                                                          marginRight: "10px",
-                                                          marginLeft: "10px",
-                                                          paddingTop: "20px",
-                                                          paddingBottom: "0px",
-                                                          paddingRight: "15px"
-                                                      }}
+                </div>
+                <br />
+                <br />
+                {/*--------------------Recent Ones-------------------------*/}
+                <div style={{ backgroundColor: "#defaff" }}>
+                    {recents !== ""
+                        ?
+                        <>
+                            <h3 style={{}}>
+                                <h4><MusicNoteIcon style={{ color: "red", marginBottom: "3px", marginRight: "3px" }} />Top 10 Recents</h4>
+                            </h3>
+                        </>
+                        :
+                        ""
+                    }
+                    {
+                        recents !== [] && recents.length !== 0 ?
+                            (
+                                <div className="container" style={{ width: "100%" }} >
+                                    <div className="row">
+                                        {recents.map(category =>
+                                            <div
+                                                className="col-md-5 col-lg-5 col-12"
+                                                key={category.id}
+                                                style=
+                                                {{
+                                                    backgroundColor: "white",
+                                                    borderRadius: "15px",
+                                                    paddingLeft: "15px",
+                                                    marginBottom: "10px",
+                                                    marginRight: "10px",
+                                                    marginLeft: "10px",
+                                                    paddingTop: "20px",
+                                                    paddingBottom: "0px",
+                                                    paddingRight: "15px"
+                                                }}
 
-                                              >
-                                                  <div className="row" >
-                                                      <div
-                                                          onClick={() => musichandle(category.id)}
-                                                          className="col-lg-1 col-md-2 col-sm-2 col-2"
-                                                          style=
-                                                              {{
-                                                                  borderRadius: "15px",
-                                                                  overflow: "hidden",
-                                                                  height: "50px",
-                                                                  width: "50px"
-                                                              }}
-                                                      >
-                                                          <Image
-                                                              src={picture2}
-                                                              width={200}
-                                                              height={200}
-                                                          />
-                                                      </div>
-                                                      <div
-                                                          className="col-lg-9 col-md-7 col-sm-9 col-9"
-                                                          onClick={() => musichandle(category.id)}
-                                                          style={{textAlign:"justify", overflow: "hidden" }}>
-                                                          <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.artist}-{category.title}</Marquee>
-                                                      </div>
-                                                      <div className="col-lg-1 col-md-2 col-sm-1 col-1">
-                                                          <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          )}
-                                      </div>
-                                  </div>
-                              )
-                              :
-                              ""
-                      }
-                  </div>
-                  <br/>
-                  <br/>
+                                            >
+                                                <div className="row" >
+                                                    <div
+                                                        onClick={() => musichandle(category.id)}
+                                                        className="col-lg-1 col-md-2 col-sm-2 col-2"
+                                                        style=
+                                                        {{
+                                                            borderRadius: "15px",
+                                                            overflow: "hidden",
+                                                            height: "50px",
+                                                            width: "50px"
+                                                        }}
+                                                    >
+                                                        <Image
+                                                            src={picture2}
+                                                            width={200}
+                                                            height={200}
+                                                        />
+                                                    </div>
+                                                    <div
+                                                        className="col-lg-9 col-md-7 col-sm-9 col-9"
+                                                        onClick={() => musichandle(category.id)}
+                                                        style={{ textAlign: "justify", overflow: "hidden" }}>
+                                                        <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.artist}-{category.title}</Marquee>
+                                                    </div>
+                                                    <div className="col-lg-1 col-md-2 col-sm-1 col-1">
+                                                        <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )
+                            :
+                            ""
+                    }
+                </div>
+                <br />
+                <br />
                 {/* --------------------Top Playlist-------------------------------------- */}
                 <div style={{ backgroundColor: "#defaff" }}>
                     {playlists.category !== ""
                         ?
                         <>
-                                <h4>
-                                    <AppsIcon style={{color:"red", marginBottom: "3px", marginRight: "3px" }} />
-                                    Top10 PlayList 
-                                </h4>
+                            <h4>
+                                <AppsIcon style={{ color: "red", marginBottom: "3px", marginRight: "3px" }} />
+                                Top10 PlayList
+                            </h4>
                         </>
                         :
                         ""
@@ -214,7 +214,7 @@ export default function DesktopMainCarousel() {
                                                 key={playlist.id}
                                                 style=
                                                 {{
-                                                
+
                                                     borderRadius: "15px",
                                                     paddingLeft: "15px",
                                                     marginBottom: "10px",
@@ -224,37 +224,37 @@ export default function DesktopMainCarousel() {
                                                     paddingBottom: "0px",
                                                     paddingRight: "15px"
                                                 }}
-                                                
+
                                             >
-                                               
-                                                    <div 
+
+                                                <div
                                                     className="col-lg-12 col-md-12 col-sm-12 col-xl-12"
                                                     style=
-                                                        {{
-                                                            overflow: "hidden",
-                                                            height: "100%",
-                                                            width: "100%" ,
-                                                            marginBottom:"-10px"
-                                                        }}
-                                                    >
-                                                        <Image
-                                                         src={port +  playlist.photo}
-                                                         width="100%"
-                                                         height="100%"
-                                                        />
+                                                    {{
+                                                        overflow: "hidden",
+                                                        height: "100%",
+                                                        width: "100%",
+                                                        marginBottom: "-10px"
+                                                    }}
+                                                >
+                                                    <Image
+                                                        src={port + playlist.photo}
+                                                        width="100%"
+                                                        height="100%"
+                                                    />
+                                                </div>
+                                                <div
+                                                    className="col-lg-12 col-md-12 col-sm-12 col-xl-12 justify-content-sm-start"
+                                                    style={{ textAlign: "justify", overflow: "hidden", }}>
+                                                    <div style={{ width: "100px" }}>
+                                                        <Marquee speed="30" gradient="0" pauseOnHover={true}>
+                                                            {playlist.title}
+                                                            <div style={{ width: "20px" }}></div>
+                                                        </Marquee>
                                                     </div>
-                                                    <div 
-                                                        className="col-lg-12 col-md-12 col-sm-12 col-xl-12 justify-content-sm-start"
-                                                        style={{ textAlign: "justify", overflow: "hidden",}}>
-                                                       <div style={{width:"100px"}}>
-                                                           <Marquee speed="30" gradient="0" pauseOnHover={true}>
-                                                               {playlist.title}
-                                                               <div style={{width:"20px"}}></div>
-                                                           </Marquee>
-                                                       </div>
-                                                    </div>
+                                                </div>
 
-                                         
+
                                             </div>
                                         )}
                                     </div>
@@ -263,84 +263,84 @@ export default function DesktopMainCarousel() {
                             :
                             ""
                     }
-                    </div><br/><br/>
-                  {/*----------------------Top Artists----------------------*/}
-                  <div style={{ backgroundColor: "#defaff" }}>
-                      {artists !== ""
-                          ?
-                          <>
-                              <h4>
-                                  <PersonIcon style={{color:"red", marginBottom: "3px", marginRight: "3px" }} />
-                                  Top Artists
-                              </h4>
-                          </>
-                          :
-                          ""
-                      }
-                      {
-                          artists !== [] && artists.length !== 0 ?
-                              (
-                                  <div className="container" style={{ width: "100%" }} >
-                                      <div className="row">
-                                          {artists.map(playlist =>
-                                              <div
-                                                  className="col-md-3 col-lg-2 col-sm-3 col-xl-2"
-                                                  key={playlist.id}
-                                                  style=
-                                                      {{
+                </div><br /><br />
+                {/*----------------------Top Artists----------------------*/}
+                <div style={{ backgroundColor: "#defaff" }}>
+                    {artists !== ""
+                        ?
+                        <>
+                            <h4>
+                                <PersonIcon style={{ color: "red", marginBottom: "3px", marginRight: "3px" }} />
+                                Top Artists
+                            </h4>
+                        </>
+                        :
+                        ""
+                    }
+                    {
+                        artists !== [] && artists.length !== 0 ?
+                            (
+                                <div className="container" style={{ width: "100%" }} >
+                                    <div className="row">
+                                        {artists.map(playlist =>
+                                            <div
+                                                className="col-md-3 col-lg-2 col-sm-3 col-xl-2"
+                                                key={playlist.id}
+                                                style=
+                                                {{
 
-                                                          borderRadius: "15px",
-                                                          paddingLeft: "15px",
-                                                          marginBottom: "10px",
-                                                          marginRight: "10px",
-                                                          marginLeft: "10px",
-                                                          paddingTop: "20px",
-                                                          paddingBottom: "0px",
-                                                          paddingRight: "15px"
-                                                      }}
+                                                    borderRadius: "15px",
+                                                    paddingLeft: "15px",
+                                                    marginBottom: "10px",
+                                                    marginRight: "10px",
+                                                    marginLeft: "10px",
+                                                    paddingTop: "20px",
+                                                    paddingBottom: "0px",
+                                                    paddingRight: "15px"
+                                                }}
 
-                                              >
+                                            >
 
-                                                  <div
-                                                      className="col-lg-12 col-md-12 col-sm-12 col-xl-12"
-                                                      style=
-                                                          {{
-                                                              overflow: "hidden",
-                                                              height: "100%",
-                                                              width: "100%" ,
-                                                              marginBottom:"-10px"
-                                                          }}
-                                                  >
-                                                      <Image
-                                                          src={port +  playlist.photo}
-                                                          width="100%"
-                                                          height="100%"
-                                                      />
-                                                  </div>
-                                                  <div
-                                                      className="col-lg-12 col-md-12 col-sm-12 col-xl-12 justify-content-sm-start"
-                                                      style={{ textAlign: "justify", overflow: "hidden",}}>
-                                                      <div style={{width:"100px"}}>
-                                                          <Marquee speed="30" gradient="0" pauseOnHover={true}>
-                                                              {playlist.name}
-                                                              <div style={{width:"20px"}}></div>
-                                                          </Marquee>
-                                                      </div>
-                                                  </div>
+                                                <div
+                                                    className="col-lg-12 col-md-12 col-sm-12 col-xl-12"
+                                                    style=
+                                                    {{
+                                                        overflow: "hidden",
+                                                        height: "100%",
+                                                        width: "100%",
+                                                        marginBottom: "-10px"
+                                                    }}
+                                                >
+                                                    <Image
+                                                        src={port + playlist.photo}
+                                                        width="100%"
+                                                        height="100%"
+                                                    />
+                                                </div>
+                                                <div
+                                                    className="col-lg-12 col-md-12 col-sm-12 col-xl-12 justify-content-sm-start"
+                                                    style={{ textAlign: "justify", overflow: "hidden", }}>
+                                                    <div style={{ width: "100px" }}>
+                                                        <Marquee speed="30" gradient="0" pauseOnHover={true}>
+                                                            {playlist.name}
+                                                            <div style={{ width: "20px" }}></div>
+                                                        </Marquee>
+                                                    </div>
+                                                </div>
 
 
-                                              </div>
-                                          )}
-                                      </div>
-                                  </div>
-                              )
-                              :
-                              ""
-                      }
-                  </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )
+                            :
+                            ""
+                    }
+                </div>
 
             </div>
-            </div>
-     
+        </div>
+
     );
 }
