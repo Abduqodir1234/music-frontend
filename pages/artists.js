@@ -80,7 +80,7 @@ const Artists = ({ all }) => {
                                                 <div className="row" >
                                                     <div
                                                         onClick={() => musichandle(category.id)}
-                                                        className="col-lg-1 col-md-1 col-2"
+                                                        className="col-lg-1 col-md-1 col-sm-2 col-2"
                                                         style=
                                                         {{
                                                             borderRadius: "15px",

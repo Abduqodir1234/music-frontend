@@ -80,7 +80,7 @@ const CategoryList = ({ data }) => {
                                             >
                                                 <div className="row" onClick={() => musichandle(category.id)}>
                                                     <div
-                                                        className="col-lg-1 col-md-1 col-2"
+                                                        className="col-lg-1 col-md-1 col-sm-2 col-2"
                                                         style=
                                                         {{
                                                             borderRadius: "15px",
