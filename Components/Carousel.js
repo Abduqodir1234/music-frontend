@@ -10,10 +10,10 @@ import { port } from "../port";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Marquee from "react-fast-marquee";
+import picture3 from "../public/noimage.jpg";
 
 // // install Swiper modules
 // SwiperCore.use([Pagination]);
-
 
 const Carousel = () => {
   const data = useSelector(state => state.main.category);
@@ -40,7 +40,7 @@ const Carousel = () => {
         {data.category.map(category =>
           <SwiperSlide key={category.id}>
             <div style={{color:"black"}}>
-              <Image className="crsimg" width={100} height={100} src={port + category.photo}></Image><br />
+              <Image className="crsimg" width={100} height={100} src={category.photo2  ? category.photo2 :picture3}></Image><br />
              <Marquee style={{width: '100px'}} speed={30} gradient="none" > {category.title}<div style={{width:"20px"}}></div></Marquee>
             </div>
           </SwiperSlide>

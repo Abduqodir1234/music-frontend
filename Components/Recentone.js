@@ -85,7 +85,7 @@ export default function TopMusics() {
                             className="col-lg-9 col-md-7 col-sm-8 col-8"
                             onClick={() => musichandle(category.id)}
                             style={{ textAlign: "justify", overflow: "hidden" }}>
-                            <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.artist}-{category.title}</Marquee>
+                            <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.title}</Marquee>
                         </div>
                         <div className="col-lg-1 col-md-2 col-sm-2 col-2">
                             <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />

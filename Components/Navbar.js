@@ -213,11 +213,8 @@ function MiniDrawer({ children }) {
   }
   const handleSearch = (e) => {
     const t = data.filter(music => {
-      let x = music.artist + " " + music.title;
-      let z = music.artist + "-" + music.title;
-      if (z.toLowerCase().includes(e.target.value.toLowerCase())) {
-      }
-      return z.toLowerCase().includes(e.target.value.toLowerCase()) || music.category.title.toLowerCase().includes(e.target.value.toLowerCase()) || music.artist.toLowerCase().includes(e.target.value.toLowerCase()) || music.title.toLowerCase().includes(e.target.value.toLowerCase()) || x.toLowerCase().includes(e.target.value.toLowerCase()) ? music : ""
+    let x =  music.title;
+    return  music.title.toLowerCase().match(e.target.value.toLowerCase()) || x.toLowerCase().match(e.target.value.toLowerCase()) ? music : ""
     });
     setitems(t.slice(0, 10));
     t.length > 10 ? setmore(true) : setmore(false)

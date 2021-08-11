@@ -16,6 +16,7 @@ import open_player from "../Redux/Actions/openplayer";
 import Marquee from "react-fast-marquee";
 import PersonIcon from "@material-ui/icons/Person";
 import { useRouter } from "next/dist/client/router";
+import picture3 from "../public/noimage.jpg";
 export default function DesktopMainCarousel() {
     const artists = useSelector(state => state.main.artists);
     const topmusics = useSelector(state => state.main.top_songs);
@@ -99,7 +100,7 @@ export default function DesktopMainCarousel() {
                                                         className="col-lg-9 col-md-7 col-sm-9 col-9"
                                                         onClick={() => musichandle(category.id)}
                                                         style={{ textAlign: "justify", overflow: "hidden" }}>
-                                                        <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.artist}-{category.title}</Marquee>
+                                                        <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.title}</Marquee>
                                                     </div>
                                                     <div className="col-lg-1 col-md-2 col-sm-1 col-1">
                                                         <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
@@ -238,7 +239,7 @@ export default function DesktopMainCarousel() {
                                                     }}
                                                 >
                                                     <Image
-                                                        src={port + playlist.photo}
+                                                        src={playlist.image_url ?playlist.image_url :picture3}
                                                         width="100%"
                                                         height="100%"
                                                     />
@@ -312,7 +313,7 @@ export default function DesktopMainCarousel() {
                                                     }}
                                                 >
                                                     <Image
-                                                        src={port + playlist.photo}
+                                                        src={playlist.photo2 ?playlist.photo2 :picture3}
                                                         width="100%"
                                                         height="100%"
                                                     />

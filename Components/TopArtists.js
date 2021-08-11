@@ -7,7 +7,7 @@ import picture from "../public/picture.png"
 // Import Swiper styles
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css"
-
+import picture3 from "../public/noimage.jpg"
 
 // import Swiper core and required modules
 import SwiperCore, {
@@ -47,7 +47,7 @@ export default function TopArtists() {
         {artists.map(artist =>
           <SwiperSlide key={artist.id}>
             <div >
-              <Image className="crsimg" width={100} height={100} src={port + artist.photo}></Image><br />
+               <Image className="crsimg" width={100} height={100} src={artist.image_url ?artist.image_url :picture3 }></Image><br />
               <Marquee style={{width:'100px'}} speed={30} gradient="none" >{artist.name} <div style={{width:"20px"}}></div></Marquee>
             </div>
           </SwiperSlide>

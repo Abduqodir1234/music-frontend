@@ -36,11 +36,9 @@ const Search = () => {
     }
     const handleSearch = (e) => {
         const t = data.filter(music => {
-            let x = music.artist + " " + music.title;
-            let z = music.artist + "-" + music.title;
-            if (z.toLowerCase().includes(e.target.value.toLowerCase())) {
-            }
-            return z.toLowerCase().includes(e.target.value.toLowerCase()) || music.category.title.toLowerCase().includes(e.target.value.toLowerCase()) || music.artist.toLowerCase().includes(e.target.value.toLowerCase()) || music.title.toLowerCase().includes(e.target.value.toLowerCase()) || x.toLowerCase().includes(e.target.value.toLowerCase()) ? music : ""
+            let x = music.title;
+
+            return  music.title.toLowerCase().includes(e.target.value.toLowerCase()) || x.toLowerCase().includes(e.target.value.toLowerCase()) ? music : ""
         });
         setitem(t);
     }
