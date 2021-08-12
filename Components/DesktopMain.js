@@ -25,8 +25,10 @@ export default function DesktopMainCarousel() {
     const dispatch = useDispatch()
     const router = useRouter()
     const download = (id) => {
-        let url = port + "/api/download/song/" + id
-        router.push(url, null, { shallow: true })
+        axios.get(port + "/api/download/song/" + id)
+            .then(response=>{
+                router.push(response.data.url)
+            })
     }
     const musichandle = (id) => {
         axios.get(port + "/api/songs/" + id)
@@ -174,7 +176,7 @@ export default function DesktopMainCarousel() {
                                                         className="col-lg-9 col-md-7 col-sm-9 col-9"
                                                         onClick={() => musichandle(category.id)}
                                                         style={{ textAlign: "justify", overflow: "hidden" }}>
-                                                        <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.artist}-{category.title}</Marquee>
+                                                        <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.title}</Marquee>
                                                     </div>
                                                     <div className="col-lg-1 col-md-2 col-sm-1 col-1">
                                                         <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />

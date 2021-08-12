@@ -157,7 +157,6 @@ function MiniDrawer({ children }) {
   const [searchbar, setsearchbar] = useState(false)
   const [searchitems, setitems] = useState([])
   const anchorRef = React.useRef(null);
-  let data = useSelector(state => state.main.all_songs)
   const dispatch = useDispatch()
   const musichandle = (id) => {
     axios.get(port + "/api/songs/" + id)
@@ -172,8 +171,10 @@ function MiniDrawer({ children }) {
 
   }
   const download = (id) => {
-    let url = port + "/api/download/song/" + id
-    router.push(url, null, { shallow: true })
+    axios.get(port + "/api/download/song/" + id)
+        .then(response=>{
+          router.push(response.data.url)
+        })
   }
   let style = {}
   if (windowSize.width < 889) {
@@ -212,12 +213,18 @@ function MiniDrawer({ children }) {
     }
   }
   const handleSearch = (e) => {
-    const t = data.filter(music => {
-    let x =  music.title;
-    return  music.title.toLowerCase().match(e.target.value.toLowerCase()) || x.toLowerCase().match(e.target.value.toLowerCase()) ? music : ""
-    });
-    setitems(t.slice(0, 10));
-    t.length > 10 ? setmore(true) : setmore(false)
+    const data = new FormData()
+    axios({
+      method:"GET",
+      url:port + "/api/search/navbar/?search=" + e.target.value ,
+      data:data
+    })
+        .then(response=>{
+          setitems(response.data)
+        })
+        .catch(error=>{
+          console.log(error)
+        })
   }
   return (
     <div>
@@ -322,7 +329,7 @@ function MiniDrawer({ children }) {
                                   <Image src={play} width={30} height={30} />
                                 </div>
                                 <div className="col-md-8 col-sm-8 col-8" onClick={() => musichandle(music.id)}>
-                                  <Marquee gradient="none" speed={30}>{music.artist} - {music.title}</Marquee>
+                                  <Marquee gradient="none" speed={30}> {music.title}</Marquee>
                                 </div>
                                 <div className="col-md-2 col-sm-2 col-2">
                                   <GetApp onClick={() => download(music.id)} />
@@ -509,7 +516,7 @@ function MiniDrawer({ children }) {
                                     <Image src={play} width={30} height={30} />
                                   </div>
                                   <div className="col-md-8 col-sm-8 col-8" onClick={() => musichandle(music.id)}>
-                                    <Marquee gradient="none" speed={30}>{music.artist} - {music.title}</Marquee>
+                                    <Marquee gradient="none" speed={30}>{music.title}</Marquee>
                                   </div>
                                   <div className="col-md-2 col-sm-2 col-2">
                                     <GetApp onClick={() => download(music.id)} />

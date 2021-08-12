@@ -40,8 +40,11 @@ export default function TopMusics() {
     }
     const router = useRouter()
     const download = (id) => {
-        let url = port + "/api/download/song/" + id
-        router.push(url, null, { shallow: true })
+        axios.get(port + "/api/download/song/" + id)
+            .then(response=>{
+                router.push(response.data.url)
+            })
+
     }
     return (
         <div className="col-md-10">

@@ -33,8 +33,10 @@ const Artists = ({ all }) => {
     }
     const router = useRouter()
     const download = (id) => {
-        let url = port + "/api/download/song/" + id
-        router.push(url, null, { shallow: true })
+        axios.get(port + "/api/download/song/" + id)
+            .then(response=>{
+                router.push(response.data.url)
+            })
     }
     useEffect(() => {
         let art = chosen === undefined ? all[0].name : chosen
@@ -45,12 +47,29 @@ const Artists = ({ all }) => {
     }, [chosen])
     return (
         <ArtistsNavigation>
-            <div className="h-100" style={{ marginLeft: "40px", marginRight: "40px", marginBottom: "150px", backgroundColor: "#defaff", minHeight: "100%" }}><br /><br />
+            <div
+                className="h-100"
+                style=
+                    {{
+                        marginLeft: "40px",
+                        marginRight: "40px",
+                        marginBottom: "150px",
+                        backgroundColor: "#defaff",
+                        minHeight: "100%"
+                    }}
+            ><br /><br />
                 <div style={{ backgroundColor: "#defaff" }}>
 
                     <>
                         <h3 style={{}}>
-                            <AppsIcon style={{ color: "red", marginBottom: "3px" }} /> {chosen === undefined ? all[0].name : chosen}
+                            <AppsIcon
+                                style=
+                                    {{
+                                        color: "red",
+                                        marginBottom: "3px"
+                                    }}
+                            />
+                                {chosen === undefined ? all[0].name : chosen}
                         </h3><br />
                     </>
 
@@ -99,10 +118,18 @@ const Artists = ({ all }) => {
                                                         className="col-lg-9 col-md-10 col-sm-8 col-8"
                                                         onClick={() => musichandle(category.id)}
                                                         style={{ textAlign: "center", overflow: "hidden" }}>
-                                                        <Marquee speed={30} gradient='none'> {category.artist}-{category.title} <div style={{ width: '20px' }}></div></Marquee>
+                                                        <Marquee speed={30} gradient='none'>
+                                                           {category.title}
+                                                            <div style={{ width: '20px' }}>
+
+                                                            </div>
+                                                        </Marquee>
                                                     </div>
                                                     <div className="col-lg-1 col-md-1 col-2 col-sm-2">
-                                                        <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
+                                                        <GetApp
+                                                            onClick={() => download(category.id)}
+                                                            style={{ cursor: "pointer" }}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
