@@ -24,7 +24,7 @@ const ArtistsNavigation = ({set}) => {
                                 onClick={() => handleclick(artist.id, artist.name)}
                             >
                                 <div className="container-content text-center">
-                                    <Image className="content-img" src={artist.image_url ? port + artist.image_url :picture3} width="50" height="50" style={{ marginLeft: "20px" }} /><br />
+                                    <Image className="content-img" src={artist.photo ? port + artist.photo :picture3} width="50" height="50" style={{ marginLeft: "20px" }} /><br />
                                     <div className="category_navigation_text" style={{fontSize:"small"}}>{artist.name}</div>
                                 </div>
                             </div>
