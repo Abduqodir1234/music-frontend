@@ -114,12 +114,12 @@ export default function DesktopMainCarousel() {
                                                         />
                                                     </div>
                                                     <div
-                                                        className="col-lg-9 col-md-7 col-sm-9 col-9"
+                                                        className="col-lg-8 col-md-7 col-sm-6 col-8"
                                                         onClick={() => musichandle(category.id)}
                                                         style={{ textAlign: "justify", overflow: "hidden" }}>
                                                         <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.title}</Marquee>
                                                     </div>
-                                                    <div className="col-lg-1 col-md-2 col-sm-1 col-1">
+                                                    <div className="col-lg-1 col-md-1 col-sm-1 col-1">
                                                         <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
                                                     </div>
                                                 </div>
@@ -188,12 +188,12 @@ export default function DesktopMainCarousel() {
                                                         />
                                                     </div>
                                                     <div
-                                                        className="col-lg-9 col-md-7 col-sm-9 col-9"
+                                                        className="col-lg-9 col-md-7 col-sm-8 col-8"
                                                         onClick={() => musichandle(category.id)}
                                                         style={{ textAlign: "justify", overflow: "hidden" }}>
                                                         <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.title}</Marquee>
                                                     </div>
-                                                    <div className="col-lg-1 col-md-2 col-sm-1 col-1">
+                                                    <div className="col-lg-1 col-md-1 col-sm-1 col-1">
                                                         <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
                                                     </div>
                                                 </div>
