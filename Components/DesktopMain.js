@@ -257,7 +257,7 @@ export default function DesktopMainCarousel() {
                                                     }}
                                                 >
                                                     <Image
-                                                        src={playlist.image_url ?playlist.image_url :picture3}
+                                                        src={playlist.image_url ? port +  playlist.image_url :picture3}
                                                         width="100%"
                                                         height="100%"
                                                     />
@@ -333,7 +333,7 @@ export default function DesktopMainCarousel() {
                                                     }}
                                                 >
                                                     <Image
-                                                        src={playlist.photo2 ?playlist.photo2 :picture3}
+                                                        src={playlist.photo2 ?port +  playlist.photo2 :picture3}
                                                         width="100%"
                                                         height="100%"
                                                     />
