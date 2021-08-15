@@ -17,6 +17,11 @@ import Marquee from "react-fast-marquee";
 import PersonIcon from "@material-ui/icons/Person";
 import { useRouter } from "next/dist/client/router";
 import picture3 from "../public/noimage.jpg";
+import chosen_category from "../Redux/Actions/chosen_catgory";
+import get_category_with_music from "../Redux/Actions/get_category_with_songs";
+import get_category_id from "../Redux/Actions/get_category_id";
+import get_artist_id from "../Redux/Actions/get_artist_id";
+import get_artist from "../Redux/Actions/get_artist";
 export default function DesktopMainCarousel() {
     const artists = useSelector(state => state.main.artists);
     const topmusics = useSelector(state => state.main.top_songs);
@@ -41,6 +46,16 @@ export default function DesktopMainCarousel() {
         dispatch(get_music_id(id))
         dispatch(open_player())
 
+    }
+    const handleclick2 = (id, title) => {
+        dispatch(get_artist_id(id))
+        dispatch(get_artist(title))
+        router.push("/artists")
+    }
+    const handleclick = (id, title) => {
+        dispatch(chosen_category(title))
+        dispatch(get_category_id(id))
+        router.push("/category")
     }
     return (
         <div style={{ width: "100%", height: "100%" }}>
@@ -231,6 +246,7 @@ export default function DesktopMainCarousel() {
                                             >
 
                                                 <div
+                                                    onClick={()=>handleclick(playlist.id,playlist.title)}
                                                     className="col-lg-12 col-md-12 col-sm-12 col-xl-12"
                                                     style=
                                                     {{
@@ -247,6 +263,7 @@ export default function DesktopMainCarousel() {
                                                     />
                                                 </div>
                                                 <div
+                                                    onClick={()=>handleclick(playlist.id,playlist.title)}
                                                     className="col-lg-12 col-md-12 col-sm-12 col-xl-12 justify-content-sm-start"
                                                     style={{ textAlign: "justify", overflow: "hidden", }}>
                                                     <div style={{ width: "100px" }}>
@@ -305,6 +322,7 @@ export default function DesktopMainCarousel() {
                                             >
 
                                                 <div
+                                                    onClick={()=>handleclick2(playlist.id,playlist.name)}
                                                     className="col-lg-12 col-md-12 col-sm-12 col-xl-12"
                                                     style=
                                                     {{

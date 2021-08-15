@@ -1,18 +1,16 @@
 .containere{
-    position: relative;
+    width:100px;
 }
 .category_navigation{
-    position:absolute;
+    min-height: 100%;
     left:0px;
     top:0px;
+    width: 100px;
     overflow-y: scroll;
-    height:100vh;
-    width: 120px;
     overflow-x: hidden;
     background-color:white ;
 }
 .category_navigation_container{
-    width: 100%;
     height: 40px;
     color: #000000;
     margin-bottom: 50px;

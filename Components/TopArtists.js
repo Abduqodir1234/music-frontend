@@ -15,9 +15,14 @@ import SwiperCore, {
 } from 'swiper/core';
 import Image from "next/image";
 import { useWindowSize } from "./Navbar";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { port } from "../port";
 import Marquee from "react-fast-marquee";
+import get_artist_id from "../Redux/Actions/get_artist_id";
+import get_artist from "../Redux/Actions/get_artist";
+import chosen_category from "../Redux/Actions/chosen_catgory";
+import get_category_id from "../Redux/Actions/get_category_id";
+import {useRouter} from "next/dist/client/router";
 
 // // install Swiper modules
 // SwiperCore.use([Pagination]);
@@ -26,6 +31,14 @@ import Marquee from "react-fast-marquee";
 export default function TopArtists() {
   const artists = useSelector(state => state.main.artists)
   const size = useWindowSize()
+  const dispatch = useDispatch()
+  const router = useRouter()
+  const handleclick2 = (id, title) => {
+    dispatch(get_artist_id(id))
+    dispatch(get_artist(title))
+    router.push("/artists")
+  }
+
   return (
     <>
       <Swiper slidesPerView={3} spaceBetween={15} pagination={{
@@ -47,8 +60,8 @@ export default function TopArtists() {
         {artists.map(artist =>
           <SwiperSlide key={artist.id}>
             <div >
-               <Image className="crsimg" width={100} height={100} src={artist.image_url ?artist.image_url :picture3 }></Image><br />
-              <Marquee style={{width:'100px'}} speed={30} gradient="none" >{artist.name} <div style={{width:"20px"}}></div></Marquee>
+               <Image onClick={()=>handleclick2(artist.id,artist.name)} className="crsimg" width={100} height={100} src={artist.image_url ?artist.image_url :picture3 }></Image><br />
+              <Marquee onClick={()=>handleclick2(artist.id,artist.name)} style={{width:'100px'}} speed={30} gradient="none" >{artist.name} <div style={{width:"20px"}}></div></Marquee>
             </div>
           </SwiperSlide>
         )}

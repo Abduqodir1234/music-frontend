@@ -1,3 +1,5 @@
+import {artist_category_id} from "../../port";
+
 const initialstate = {
     category: [],
     artists: [],
@@ -10,7 +12,9 @@ const initialstate = {
     recent_ones:[],
     all_songs:[],
     all:[],
-    chosen_artist:undefined
+    chosen_artist:undefined,
+    artist_id:artist_category_id,
+    category_id:artist_category_id
 }
 
 export const mainreducer = (state = initialstate, action) => {
@@ -80,6 +84,17 @@ export const mainreducer = (state = initialstate, action) => {
                 ...state,
                 all: action.payload
             }
+        case "GET_ARTIST_ID":
+            return  {
+                ...state,
+                artist_id: action.payload
+            }
+        case "GET_CATEGORY_ID":
+            return  {
+                ...state,
+                category_id: action.payload
+            }
+
         default: return state
     }
 }

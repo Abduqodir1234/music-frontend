@@ -20,6 +20,16 @@ const Search = () => {
     const router = useRouter()
     const [item, setitem] = useState([])
     const [data,setdata] = useState([])
+    const handlepagination = (url) =>{
+        axios.get(url)
+            .then(response=>{
+                setitem(response.data.results)
+                setdata(response.data)
+            })
+            .catch(eror=>{
+                console.log(eror)
+            })
+    }
     const download = (id) => {
         axios.get(port + "/api/download/song/" + id)
             .then(response=>{
@@ -38,10 +48,10 @@ const Search = () => {
         dispatch(open_player())
 
     }
-    const handleSearch = () => {
+    const handleSearch = (e) => {
         axios({
             method:"GET",
-            url:port + "/api/music/?search=" + value ,
+            url:port + "/api/music/?search=" + e.target.value ,
         })
             .then(response=>{
                 setitem(response.data.results)
@@ -52,7 +62,7 @@ const Search = () => {
             })
     }
     return (
-        <div style={{ width: "100%", height: "100%" }}>
+        <div style={{ width: "100%", height: "100%",marginBottom:"100px" }}>
             <div
                 className="h-100"
                 style=
@@ -97,7 +107,7 @@ const Search = () => {
                                     <div className="row">
                                         <div className="col-md-11 col-lg-10 col-12 col-sm-12">
                                             <div className="input-group mb-3">
-                                                <input type="text" className="form-control" placeholder="Search" onChange={(e) => setvalue(e.target.value)} />
+                                                <input type="text" className="form-control" placeholder="Search" onChange={(e) =>handleSearch(e)} />
                                                 <div className="input-group-append">
                                                     <button className="btn btn-success" onClick={()=>handleSearch()} type="submit">Go</button>
                                                 </div>
@@ -151,16 +161,15 @@ const Search = () => {
                                                 </div>
                                             </div>
                                         )}
-                                        {data !== []
-                                            ?
-                                            <nav aria-label="Page navigation example">
+                                        {data.length !== 0?
+                                            <nav className="col-md-10" aria-label="Page navigation example">
                                                 <ul className="pagination justify-content-center">
-                                                    <li className={data.previous ? "page-item" : "page-item disabled"}>
-                                                        <Link  href={data.previous? data.previous : "#"} ><div tabIndex="-1" className="page-link">Previous</div></Link>
+                                                    <li className={ data.links.previous ? "page-item" : "page-item disabled"} style={{cursor:"pointer"}}>
+                                                        <div onClick={()=>handlepagination(data.links.previous ? data.links.previous : "#")} className="page-link" >Prev</div>
                                                     </li>
-                                                    <li className="page-item"><Link  href="#"><div className="page-link"></div></Link></li>
-                                                    <li className={data.next ? "page-item" : "page-item disabled"}>
-                                                        <Link className="page-link" href={data.next  ? data.next : "#"}><div className="page-link">Next</div></Link>
+                                                    <li className="page-item"><div className="page-link">{data.current_page_number}</div></li>
+                                                    <li  className={data.links.next ? "page-item " : "page-item disabled"} style={{cursor:"pointer"}}>
+                                                        <div onClick={()=>handlepagination(data.links.next ? data.links.next : "#")} className="page-link" >Next</div>
                                                     </li>
                                                 </ul>
                                             </nav>

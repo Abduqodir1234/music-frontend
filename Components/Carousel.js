@@ -8,16 +8,26 @@ import Image from "next/image";
 import { useWindowSize } from "./Navbar";
 import { port } from "../port";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Marquee from "react-fast-marquee";
 import picture3 from "../public/noimage.jpg";
+import chosen_category from "../Redux/Actions/chosen_catgory";
+import get_category_id from "../Redux/Actions/get_category_id";
+import {useRouter} from "next/dist/client/router";
 
 // // install Swiper modules
 // SwiperCore.use([Pagination]);
 
 const Carousel = () => {
   const data = useSelector(state => state.main.category);
-  const size = useWindowSize()
+  const size = useWindowSize();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handleclick = (id, title) => {
+    dispatch(chosen_category(title))
+    dispatch(get_category_id(id))
+    router.push("/category")
+  }
   return (
     <>
       <Swiper slidesPerView={3} spaceBetween={15} pagination={{
@@ -40,8 +50,8 @@ const Carousel = () => {
         {data.category.map(category =>
           <SwiperSlide key={category.id}>
             <div style={{color:"black"}}>
-              <Image className="crsimg" width={100} height={100} src={category.photo2  ? category.photo2 :picture3}></Image><br />
-             <Marquee style={{width: '100px'}} speed={30} gradient="none" > {category.title}<div style={{width:"20px"}}></div></Marquee>
+              <Image onClick={()=>handleclick(category.id,category.title)} className="crsimg" width={100} height={100} src={category.photo2  ? category.photo2 :picture3}></Image><br />
+             <Marquee onClick={()=>handleclick(category.id,category.title)} style={{width: '100px'}} speed={30} gradient="none" > {category.title}<div style={{width:"20px"}}></div></Marquee>
             </div>
           </SwiperSlide>
         )}

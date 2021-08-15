@@ -9,12 +9,26 @@ import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css"
 import Image from "next/image";
 import { useWindowSize } from "./Navbar";
+import get_artist_id from "../Redux/Actions/get_artist_id";
+import get_artist from "../Redux/Actions/get_artist";
+import chosen_category from "../Redux/Actions/chosen_catgory";
+import get_category_id from "../Redux/Actions/get_category_id";
 
 // // install Swiper modules
 // SwiperCore.use([Pagination]);
 
 
 export default function TopPlaylists() {
+  const handleclick2 = (id, title) => {
+    dispatch(get_artist_id(id))
+    dispatch(get_artist(title))
+    router.push("/artists")
+  }
+  const handleclick = (id, title) => {
+    dispatch(chosen_category(title))
+    dispatch(get_category_id(id))
+    router.push("/category")
+  }
   const size = useWindowSize()
   return (
     <>

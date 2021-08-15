@@ -31,7 +31,7 @@ const Player2 = () => {
         <div>
             {display_player
                 ?
-                <div style={{ position: "relative" }}>
+                <div style={{ position: "relative",marginTop:"150px" }}>
                     <div>
                         <AudioPlayer
                             style={{ backgroundColor: "white", color: "black", boxShadow: "2px -12px 5px 0px lavender" }}
