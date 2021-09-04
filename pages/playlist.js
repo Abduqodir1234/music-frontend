@@ -56,7 +56,7 @@ const Playlist = ({playlist}) =>{
                     </>
                )
                    :
-                   <h6>There is no musics related to chosen category</h6>
+                   <h6>There is no musics related </h6>
            }
         </div>
     )
