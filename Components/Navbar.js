@@ -27,7 +27,7 @@ import homeicon from "../public/home.svg"
 import categoryicon from '../public/category.svg'
 import usericon from "../public/user-2.svg"
 import play from "../public/play.svg"
-import { GetApp } from "@material-ui/icons"
+import { GetApp, PlaylistPlay } from "@material-ui/icons"
 import {
   Grid,
   Paper,
@@ -424,6 +424,15 @@ function MiniDrawer({ children }) {
                   />
                 }
               />
+               <BottomNavigationAction
+                label="PlayList"
+                onClick={() => {
+                  setvalue("/playlist");
+                  router.push('/playlist', null, { shallow: true })
+                }}
+                value="/playlist"
+                icon={<PlaylistPlay />}
+              />
               <BottomNavigationAction
                 label="Search"
                 onClick={() => {
@@ -433,7 +442,9 @@ function MiniDrawer({ children }) {
                 value="/search"
                 icon={<SearchIcon />}
               />
+             
             </BottomNavigation>
+            
           </div>
         </div>
         :
@@ -625,6 +636,12 @@ function MiniDrawer({ children }) {
               <ListItem button onClick={() => router.push("/artists", null, { shallow: true })}>
                 <ListItemIcon><PersonIcon /></ListItemIcon>
                 <ListItemText primary="Artists" />
+              </ListItem>
+            </List>
+            <List>
+              <ListItem button onClick={() => router.push("/playlist", null, { shallow: true })}>
+                <ListItemIcon><PlaylistPlay /></ListItemIcon>
+                <ListItemText primary="Playlist" />
               </ListItem>
             </List>
             <Divider />

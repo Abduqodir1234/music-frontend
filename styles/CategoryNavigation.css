@@ -1,11 +1,11 @@
 .containere{
-    width:100px;
+    width:80px;
 }
 .category_navigation{
     min-height: 100%;
     left:0px;
     top:0px;
-    width: 100px;
+    width: 80px;
     overflow-y: scroll;
     overflow-x: hidden;
     background-color:white ;

@@ -1,23 +1,10 @@
-import { useDispatch } from "react-redux";
-import Image from "next/image";
-import picture2 from "../public/play.svg";
-import Marquee from "react-fast-marquee";
-import { GetApp } from "@material-ui/icons";
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
-import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import SearchIcon from "@material-ui/icons/Search";
-import { useRouter } from "next/dist/client/router";
 import { port } from "../port";
 import axios from "axios";
-import get_one_music_info from "../Redux/Actions/get_one_music_info";
-import get_music_id from "../Redux/Actions/get_music_id";
-import open_player from "../Redux/Actions/openplayer";
-import Link from "next/link"
+import MusicContainer from "../Components/SubComponents/MusicContainer";
 const Search = () => {
-    const dispatch = useDispatch()
-    const [value,setvalue] = useState("")
-    const router = useRouter()
     const [item, setitem] = useState([])
     const [data,setdata] = useState([])
     const handlepagination = (url) =>{
@@ -29,24 +16,6 @@ const Search = () => {
             .catch(eror=>{
                 console.log(eror)
             })
-    }
-    const download = (id) => {
-        axios.get(port + "/api/download/song/" + id)
-            .then(response=>{
-                router.push(response.data.url)
-            })
-    }
-    const musichandle = (id) => {
-        axios.get(port + "/api/songs/" + id)
-            .then(response => {
-                dispatch(get_one_music_info(response.data))
-            })
-            .catch(error => {
-                console.log(error)
-            })
-        dispatch(get_music_id(id))
-        dispatch(open_player())
-
     }
     const handleSearch = (e) => {
         axios({
@@ -113,54 +82,7 @@ const Search = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {item.map(category =>
-                                            <div
-                                                className="col-md-5 col-lg-5 col-12"
-                                                key={category.id}
-                                                style=
-                                                {{
-                                                    backgroundColor: "white",
-                                                    borderRadius: "15px",
-                                                    paddingLeft: "15px",
-                                                    marginBottom: "10px",
-                                                    marginRight: "10px",
-                                                    marginLeft: "10px",
-                                                    paddingTop: "20px",
-                                                    paddingBottom: "0px",
-                                                    paddingRight: "15px"
-                                                }}
-
-                                            >
-                                                <div className="row" >
-                                                    <div
-                                                        onClick={() => musichandle(category.id)}
-                                                        className="col-lg-1 col-md-2 col-sm-2 col-2"
-                                                        style=
-                                                        {{
-                                                            borderRadius: "15px",
-                                                            overflow: "hidden",
-                                                            height: "50px",
-                                                            width: "50px"
-                                                        }}
-                                                    >
-                                                        <Image
-                                                            src={picture2}
-                                                            width={200}
-                                                            height={200}
-                                                        />
-                                                    </div>
-                                                    <div
-                                                        className="col-lg-9 col-md-7 col-sm-8 col-8"
-                                                        onClick={() => musichandle(category.id)}
-                                                        style={{ textAlign: "justify", overflow: "hidden" }}>
-                                                        <Marquee speed="30" gradient="0" pauseOnHover={true}>{category.title}</Marquee>
-                                                    </div>
-                                                    <div className="col-lg-1 col-md-2 col-sm-2 col-2">
-                                                        <GetApp onClick={() => download(category.id)} style={{ cursor: "pointer" }} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
+                                        <MusicContainer musicList={item} />
                                         {data.length !== 0?
                                             <nav className="col-md-10" aria-label="Page navigation example">
                                                 <ul className="pagination justify-content-center">
