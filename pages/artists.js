@@ -16,6 +16,7 @@ import { useRouter } from "next/dist/client/router";
 import {useWindowSize} from "../Components/Navbar";
 import Link from "next/link"
 import MusicContainer from "../Components/SubComponents/MusicContainer";
+import get_one_artist from "../Redux/Actions/get_artist";
 const Artists = ({ all }) => {
     const dispatch = useDispatch()
     dispatch(get_all(all))
@@ -33,6 +34,25 @@ const Artists = ({ all }) => {
             .catch(()=>{
                 return;
             })
+    }
+    const handleLike = (id) =>{
+        axios.post(`${port}/api/artist/like/${id}`)
+        .then(()=>{
+            let real = chosen?.length !== 0 ? chosen : all[0]
+            let array = []
+            if(typeof chosen === "undefined"){
+              array = all[0]
+            }
+            else{
+               array = chosen
+            }
+            array.likes += 1
+            dispatch(get_one_artist(array))
+        })
+        .catch((e)=>{
+            console.log("eeeeeeeeee",e)
+            return;
+        })
     }
     useEffect(() => {
         setloading(true)
@@ -53,7 +73,8 @@ const Artists = ({ all }) => {
                    <ArtistsNavigation />
                </div>
                
-               <div className="col-lg-10 col-xl-10 col-md-9 col-sm-9 col-9" style={{marginLeft:"20px"}}>
+               <div 
+               className="col-lg-10 col-xl-10 col-md-9 col-sm-9 col-9" style={{marginLeft:"20px"}}>
 
                        <div
                            className="h-100"
@@ -77,10 +98,10 @@ const Artists = ({ all }) => {
                                                    marginBottom: "3px"
                                                }}
                                        />
-                                       {chosen === undefined ? all[0].name : chosen}
-                                       <label>
-                                            <FavoriteBorder style={{marginLeft:"20px",color:"red"}} />
-                                            <label style={{fontSize:"small"}}>{chosen === undefined ? all[0].likes : chosen}</label>
+                                       {chosen === undefined ? all[0].name : chosen.name}
+                                       <label onClick={()=>handleLike(chosen?.id ? chosen?.id : all[0].id)} style={{cursor:"pointer"}}>
+                                            <FavoriteBorder style={{marginLeft:"10px",color:"red"}} />
+                                            <label  style={{fontSize:"small"}}>{chosen === undefined ? all[0].likes : chosen.likes}</label>
                                         </label>
                                    </h3><br />
                                </>

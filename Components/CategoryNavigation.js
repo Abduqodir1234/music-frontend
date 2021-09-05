@@ -27,7 +27,7 @@ const CategoryNavigation = ({ data }) => {
                             style={{ marginBottom: "100px" }}
                             key={category.id}
                             className="category_navigation_container"
-                            onClick={() => handleclick(category.id, category.title)}
+                            onClick={() => handleclick(category.id, category)}
                         >
                             <div className="container-content text-center">
                                 <Image className="content-img" src={category.photo ? port +  category.photo :picture3} width="50" height="50" style={{ marginLeft: "20px" }} /><br />

@@ -431,7 +431,7 @@ function MiniDrawer({ children }) {
                   router.push('/playlist', null, { shallow: true })
                 }}
                 value="/playlist"
-                icon={<PlaylistPlay />}
+                icon={<PlaylistPlay style={{color:"#395589"}} />}
               />
               <BottomNavigationAction
                 label="Search"
@@ -440,7 +440,7 @@ function MiniDrawer({ children }) {
                   router.push('/search', null, { shallow: true })
                 }}
                 value="/search"
-                icon={<SearchIcon />}
+                icon={<SearchIcon style={{color:"#395589"}} />}
               />
              
             </BottomNavigation>
@@ -467,7 +467,7 @@ function MiniDrawer({ children }) {
                   [classes.hide]: open,
                 })}
               >
-                <MenuIcon />
+                <MenuIcon style={{color:"#395589"}} />
               </IconButton>
               <Grid
                 container
@@ -620,34 +620,34 @@ function MiniDrawer({ children }) {
             <Divider />
             <List>
               <ListItem button onClick={() => router.push("/", null, { shallow: true })}>
-                <ListItemIcon><HomeRoundedIcon /></ListItemIcon>
+                <ListItemIcon><HomeRoundedIcon style={{color:"#395589"}} /></ListItemIcon>
                 <ListItemText primary="Home" />
               </ListItem>
             </List>
             <Divider />
             <List>
               <ListItem button onClick={() => router.push("/category", null, { shallow: true })}>
-                <ListItemIcon><AppsIcon /></ListItemIcon>
+                <ListItemIcon><AppsIcon style={{color:"#395589"}} /></ListItemIcon>
                 <ListItemText primary="Category" />
               </ListItem>
             </List>
             <Divider />
             <List>
               <ListItem button onClick={() => router.push("/artists", null, { shallow: true })}>
-                <ListItemIcon><PersonIcon /></ListItemIcon>
+                <ListItemIcon><PersonIcon style={{color:"#395589"}} /></ListItemIcon>
                 <ListItemText primary="Artists" />
               </ListItem>
             </List>
             <List>
               <ListItem button onClick={() => router.push("/playlist", null, { shallow: true })}>
-                <ListItemIcon><PlaylistPlay /></ListItemIcon>
+                <ListItemIcon><PlaylistPlay style={{color:"#395589"}} /></ListItemIcon>
                 <ListItemText primary="Playlist" />
               </ListItem>
             </List>
             <Divider />
             <List>
               <ListItem button onClick={() => router.push("/search", null, { shallow: true })}>
-                <ListItemIcon><SearchIcon /></ListItemIcon>
+                <ListItemIcon><SearchIcon style={{color:"#395589"}} /></ListItemIcon>
                 <ListItemText primary="Search" />
               </ListItem>
             </List>

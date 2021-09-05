@@ -172,7 +172,7 @@ export default function DesktopMainCarousel() {
                                             >
 
                                                 <div
-                                                    onClick={()=>handleclick(playlist.id,playlist.title)}
+                                                    onClick={()=>handleclick(playlist.id,playlist)}
                                                     className="col-lg-12 col-md-12 col-sm-12 col-xl-12"
                                                     style=
                                                     {{
@@ -248,7 +248,7 @@ export default function DesktopMainCarousel() {
                                             >
 
                                                 <div
-                                                    onClick={()=>handleclick2(playlist.id,playlist.name)}
+                                                    onClick={()=>handleclick2(playlist.id,playlist)}
                                                     className="col-lg-12 col-md-12 col-sm-12 col-xl-12"
                                                     style=
                                                     {{

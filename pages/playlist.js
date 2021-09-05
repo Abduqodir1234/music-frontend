@@ -29,7 +29,7 @@ const Playlist = ({playlist}) =>{
             })
     }
     return (
-        <div style={{marginBottom:"100px",marginTop:"100px",marginLeft: "40px", marginRight: "40px", }}>
+        <div style={{marginBottom:"100px",marginTop:"60px",marginLeft: "40px", marginRight: "40px", }}>
             <h3>
                 <PlaylistPlay style={{ color: "red", marginBottom: "3px" }} /> 
                    Playlist                  

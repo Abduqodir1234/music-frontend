@@ -23,8 +23,8 @@ const Carousel = () => {
   const size = useWindowSize();
   const dispatch = useDispatch();
   const router = useRouter();
-  const handleclick = (id, title) => {
-    dispatch(chosen_category(title))
+  const handleclick = (id, category) => {
+    dispatch(chosen_category(category))
     dispatch(get_category_id(id))
     router.push("/category")
   }
@@ -50,8 +50,8 @@ const Carousel = () => {
         {data.category.map(category =>
           <SwiperSlide key={category.id}>
             <div style={{color:"black"}}>
-              <Image onClick={()=>handleclick(category.id,category.title)} className="crsimg" width={100} height={100} src={category.photo  ? port +  category.photo :picture3}></Image><br />
-             <Marquee onClick={()=>handleclick(category.id,category.title)} style={{width: '100px'}} speed={30} gradient="none" > {category.title}<div style={{width:"20px"}}></div></Marquee>
+              <Image onClick={()=>handleclick(category.id,category)} className="crsimg" width={100} height={100} src={category.photo  ? port +  category.photo :picture3}></Image><br />
+             <Marquee onClick={()=>handleclick(category.id,category)} style={{width: '100px'}} speed={30} gradient="none" > {category.title}<div style={{width:"20px"}}></div></Marquee>
             </div>
           </SwiperSlide>
         )}

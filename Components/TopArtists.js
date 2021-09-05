@@ -60,8 +60,8 @@ export default function TopArtists() {
         {artists.map(artist =>
           <SwiperSlide key={artist.id}>
             <div >
-               <Image onClick={()=>handleclick2(artist.id,artist.name)} className="crsimg" width={100} height={100} src={artist.photo ? port + artist.photo :picture3 }></Image><br />
-              <Marquee onClick={()=>handleclick2(artist.id,artist.name)} style={{width:'100px'}} speed={30} gradient="none" >{artist.name} <div style={{width:"20px"}}></div></Marquee>
+               <Image onClick={()=>handleclick2(artist.id,artist)} className="crsimg" width={100} height={100} src={artist.photo ? port + artist.photo :picture3 }></Image><br />
+              <Marquee onClick={()=>handleclick2(artist.id,artist)} style={{width:'100px'}} speed={30} gradient="none" >{artist.name} <div style={{width:"20px"}}></div></Marquee>
             </div>
           </SwiperSlide>
         )}

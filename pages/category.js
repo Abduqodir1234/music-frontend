@@ -20,6 +20,19 @@ const CategoryList = ({ data }) => {
     const music = useSelector(state => state.main.one_category_with_musics) || []
     const category = useSelector(state => state.main.chosen_category_title)
     const dispatch = useDispatch()
+    const handleLike = (id) =>{
+        axios.post(`${port}/api/category/like/${id}`)
+        .then(()=>{
+            let array = category
+            array.likes += 1
+            dispatch(chosen_category(array))
+        })
+        .catch((e)=>{
+            console.log("eeeeeeeeee",e)
+            return;
+        })
+    }
+    
     const handlepagination = (url) =>{
         axios.get(url)
             .then(response=>{
@@ -31,7 +44,7 @@ const CategoryList = ({ data }) => {
             })
     }
     useEffect(() => {
-        dispatch(chosen_category(data.category[0].title))
+        dispatch(chosen_category(data.category[0]))
         axios.get(port + "/api/songs/category/" + data.category[0].id )
             .then(response=>{
                 dispatch(get_category_with_music(response.data))
@@ -55,8 +68,11 @@ const CategoryList = ({ data }) => {
                                     <>
                                         <h3 style={{}}>
                                             <AppsIcon style={{ color: "red", marginBottom: "3px" }} /> 
-                                            {category}
-                                            
+                                            {category.title}
+                                            <label onClick={()=>handleLike(category.id)} style={{cursor:"pointer"}}>
+                                            <FavoriteBorder style={{marginLeft:"10px",color:"red"}} />
+                                            <label  style={{fontSize:"small"}}>{category.likes}</label>
+                                        </label>
                                         </h3>
                                         <br/>
                                     </>
