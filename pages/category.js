@@ -12,23 +12,29 @@ import { useRouter } from "next/dist/client/router"
 import get_one_music_info from "../Redux/Actions/get_one_music_info"
 import chosen_category from "../Redux/Actions/chosen_catgory"
 import picture2 from "../public/play.svg"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Marquee from "react-fast-marquee";
 import get_category_with_music from "../Redux/Actions/get_category_with_songs";
 import MusicContainer from "../Components/SubComponents/MusicContainer"
 const CategoryList = ({ data }) => {
     const music = useSelector(state => state.main.one_category_with_musics) || []
     const category = useSelector(state => state.main.chosen_category_title)
+    const [category2,setcategory2] = useState(category)
+    useEffect(()=>{
+         setcategory2(category)
+    },[category2,music])
     const dispatch = useDispatch()
     const handleLike = (id) =>{
-        axios.post(`${port}/api/category/like/${id}`)
+        axios.post(`${port}/api/category/like/${category.id}`)
         .then(()=>{
-            let array = category
+            let array;
+            array = Object.assign({},category2)
             array.likes += 1
+            setcategory2(array)
             dispatch(chosen_category(array))
         })
         .catch((e)=>{
-            console.log("eeeeeeeeee",e)
+            console.log(e)
             return;
         })
     }
@@ -36,6 +42,7 @@ const CategoryList = ({ data }) => {
     const handlepagination = (url) =>{
         axios.get(url)
             .then(response=>{
+                setcategory2(response.data)
                 dispatch(get_category_with_music(response.data))
                 dispatch(chosen_category(response.data.results[0].category.title))
             })
@@ -47,6 +54,7 @@ const CategoryList = ({ data }) => {
         dispatch(chosen_category(data.category[0]))
         axios.get(port + "/api/songs/category/" + data.category[0].id )
             .then(response=>{
+                setcategory2(response.data)
                 dispatch(get_category_with_music(response.data))
             })
             .catch(eror=>{
@@ -63,15 +71,15 @@ const CategoryList = ({ data }) => {
 
                         <div className="h-100" style={{ marginLeft: "40px", marginRight: "40px", marginBottom: "150px", backgroundColor: "#defaff", minHeight: "100%" }}><br /><br />
                             <div style={{ backgroundColor: "#defaff" }}>
-                                {category !== ""
+                                {category2 !== ""
                                     ?
                                     <>
                                         <h3 style={{}}>
                                             <AppsIcon style={{ color: "red", marginBottom: "3px" }} /> 
-                                            {category.title}
-                                            <label onClick={()=>handleLike(category.id)} style={{cursor:"pointer"}}>
+                                            {category2.title}
+                                            <label onClick={()=>handleLike()} style={{cursor:"pointer"}}>
                                             <FavoriteBorder style={{marginLeft:"10px",color:"red"}} />
-                                            <label  style={{fontSize:"small"}}>{category.likes}</label>
+                                            <label  style={{fontSize:"small"}}>{category2.likes}</label>
                                         </label>
                                         </h3>
                                         <br/>

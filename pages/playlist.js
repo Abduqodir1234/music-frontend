@@ -37,7 +37,7 @@ const Playlist = ({playlist}) =>{
             {data !== [] && data.length !== 0 ?
                (
                    <>
-                        <MusicContainer musicList={data.results} />
+                        <MusicContainer musicList={data.results} is_playlist={false} />
                                 {data?.links?.length !== 0?
                                     <nav aria-label="Page navigation example">
                                         <ul className="pagination justify-content-center">

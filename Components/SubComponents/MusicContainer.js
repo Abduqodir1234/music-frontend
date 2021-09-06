@@ -12,7 +12,7 @@ import { port } from "../../port";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 
-const MusicContainer = ({musicList = []}) =>{
+const MusicContainer = ({musicList = [],is_playlist=true}) =>{
     const [musics,setmusics] = useState(musicList)
     const [msg,setmsg] = useState("")
     useEffect(()=>{
@@ -106,6 +106,13 @@ const MusicContainer = ({musicList = []}) =>{
                 router.push(response.data.url)
             })
     }
+    let music_class;
+    if(is_playlist){
+        music_class = "col-lg-6 col-md-5 col-sm-7 col-6"
+    }
+    else{
+        music_class = "col-lg-7 col-md-7 col-sm-8 col-7"
+    }
     return (
         <>
         {
@@ -115,19 +122,19 @@ const MusicContainer = ({musicList = []}) =>{
                         <div className="row">
                             {musics.map((category,index) =>
                                 <div
-                                    className="col-md-5 col-lg-5 col-12"
+                                    className="col-md-5 col-sm-12 col-lg-5 col-12"
                                     key={category.id}
                                     style=
                                     {{
                                         backgroundColor: "white",
                                         borderRadius: "15px",
-                                        paddingLeft: "15px",
+                                      
                                         marginBottom: "10px",
                                         marginRight: "10px",
                                         marginLeft: "10px",
                                         paddingTop: "20px",
                                         paddingBottom: "0px",
-                                        paddingRight: "15px"
+                                    
                                     }}
 
                                 >
@@ -150,7 +157,7 @@ const MusicContainer = ({musicList = []}) =>{
                                             />
                                         </div>
                                         <div
-                                            className={router.asPath === "/" ? "col-lg-6 col-md-5 col-sm-4 col-6" : "col-lg-6 col-md-5 col-sm-4 col-5"}
+                                            className={music_class}
                                             onClick={() => musichandle(category.id)}
                                             style={{ textAlign: "justify", overflow: "hidden"}}>
                                             <div 
@@ -179,7 +186,8 @@ const MusicContainer = ({musicList = []}) =>{
                                             </center>
                                             
                                         </div>
-                                        <div 
+                                        {is_playlist ? (
+                                            <div 
                                             className="col-lg-1 col-md-1 col-sm-1 col-1" 
                                         >
                                             <PlaylistAdd 
@@ -187,6 +195,7 @@ const MusicContainer = ({musicList = []}) =>{
                                                 style={{ cursor: "pointer" }} 
                                             />
                                         </div>
+                                        ) : ""}
                                         <div className="col-lg-1 col-md-1 col-sm-1 col-1">
                                             <GetApp 
                                                 onClick={() => download(category.id)} 

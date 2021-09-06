@@ -1,29 +1,24 @@
 import axios from "axios";
-import {artist_category_id, port} from "../port";
+import {port} from "../port";
 import ArtistsNavigation from "../Components/ArtistsNavigation2";
 import { useDispatch, useSelector } from "react-redux";
 import get_all from "../Redux/Actions/get_all";
-import AppsIcon from "@material-ui/icons/Apps";
-import Image from "next/image";
-import picture2 from "../public/play.svg";
-import Marquee from "react-fast-marquee";
 import { FavoriteBorder, GetApp } from "@material-ui/icons";
 import { useEffect, useState } from "react";
-import get_one_music_info from "../Redux/Actions/get_one_music_info";
-import get_music_id from "../Redux/Actions/get_music_id";
-import open_player from "../Redux/Actions/openplayer";
-import { useRouter } from "next/dist/client/router";
-import {useWindowSize} from "../Components/Navbar";
-import Link from "next/link"
 import MusicContainer from "../Components/SubComponents/MusicContainer";
 import get_one_artist from "../Redux/Actions/get_artist";
+import AppsIcon from "@material-ui/icons/Apps"
 const Artists = ({ all }) => {
     const dispatch = useDispatch()
     dispatch(get_all(all))
     const chosen2 = useSelector(state=>state.main.artist_id)
     const [full,setfull] = useState([])
     const [loading,setloading] = useState(true)
-    const chosen = useSelector(state=>state.main.chosen_artist)
+    const chosen3 = useSelector(state=>state.main.chosen_artist)
+    const [chosen,setchosen] = useState(chosen3)
+    useEffect(()=>{
+        setchosen(chosen3)
+    },[chosen3,chosen2])
     const [data, setdata] = useState([])
     const handlepagination = (url) =>{
         axios.get(url)
@@ -38,15 +33,10 @@ const Artists = ({ all }) => {
     const handleLike = (id) =>{
         axios.post(`${port}/api/artist/like/${id}`)
         .then(()=>{
-            let real = chosen?.length !== 0 ? chosen : all[0]
-            let array = []
-            if(typeof chosen === "undefined"){
-              array = all[0]
-            }
-            else{
-               array = chosen
-            }
+            let array;
+            array = typeof chosen !== "object" ? Object.assign({},all[0]) : Object.assign({},chosen)
             array.likes += 1
+            setchosen(array)
             dispatch(get_one_artist(array))
         })
         .catch((e)=>{
